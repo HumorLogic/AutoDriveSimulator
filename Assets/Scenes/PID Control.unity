@@ -8921,6 +8921,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 19553783}
     m_Modifications:
+    - target: {fileID: 6075797270005045759, guid: 055d13add89f4f74ea31d017a3fe04c3,
+        type: 3}
+      propertyPath: lidarType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075797270005045759, guid: 055d13add89f4f74ea31d017a3fe04c3,
+        type: 3}
+      propertyPath: MaxRange
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075797270005045759, guid: 055d13add89f4f74ea31d017a3fe04c3,
+        type: 3}
+      propertyPath: lineVisible
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9004240618627924980, guid: 055d13add89f4f74ea31d017a3fe04c3,
         type: 3}
       propertyPath: m_Name
