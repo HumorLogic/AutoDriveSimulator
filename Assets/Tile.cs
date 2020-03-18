@@ -21,7 +21,7 @@ namespace AutoDriveSimulator
 
         public Vector2 Pos { get; private set; }
 
-        public bool isClosed { get;  set; }
+        public bool isStepped { get;  set; }
 
        public string Name { get; private set; }
         public TileType TileType { get; set; }
@@ -36,7 +36,7 @@ namespace AutoDriveSimulator
             TileType = tileType;
             Pos = new Vector2(Row, Col);
             Name =$"Tile({Row},{Col})";
-            isClosed = false;
+            isStepped= false;
 
         }
 

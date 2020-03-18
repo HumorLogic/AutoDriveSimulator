@@ -16,13 +16,15 @@ namespace AutoDriveSimulator
         public Vector2 initialPosition;
         public Vector2 destination;
 
+        private static int tileNum;
 
-        private Dictionary<string, Tile> tileDic=new Dictionary<string, Tile>();
+
+        public static Dictionary<string, Tile> tileDic=new Dictionary<string, Tile>();
 
        
         void Start()
         {
-           
+            tileNum = Rows * Cols;
             DrawGrid();
             AeraSet();
         }
@@ -81,7 +83,7 @@ namespace AutoDriveSimulator
                         break;
                     case TileType.Obsticle:
                         tile.SetColor(Color.black);
-                        tile.isClosed = true;
+                        //tile.isStepped= true;
                         break;
                     case TileType.Initial:
                         tile.SetColor(initialColor);
@@ -93,6 +95,18 @@ namespace AutoDriveSimulator
                 }
             }
         }
+
+        public static void SetTileClosed(int row,int col)
+        {
+            if (tileDic.Count == tileNum)
+            {
+                string key = $"Tile({row},{col})";
+                tileDic[key].isStepped = true;
+                tileDic[key].SetColor(Color.gray);
+            }
+        }
+
+
     }
 }
 
