@@ -606,7 +606,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1368772482}
-        m_MethodName: SearchMethod
+        m_MethodName: StartSearch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

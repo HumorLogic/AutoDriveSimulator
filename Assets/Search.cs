@@ -52,15 +52,22 @@ namespace AutoDriveSimulator
         public void StartSearch()
         {
             StartCoroutine("SearchMethod");
+          //  SearchMethod();
         }
 
         public IEnumerator SearchMethod()
         {
-            while (IsStep(desVector)==true)
+            int count = 0;
+            while (open.Count>0)
             {
+                print(count);
+                count++;
                 open.Sort(new SearchVectorComparer());
+                print(open[0]);
                 next = open[0];
                 open.RemoveAt(0);
+                print(open.Count);
+               
 
                 //next=open.
                 for (int i = 0; i < motion.Length; i++)
@@ -68,10 +75,16 @@ namespace AutoDriveSimulator
                     Vector3 temp;
                     temp = next + motion[i];
 
+                  
+
                     if (IsStep(temp))
                     {
+                        if (IsMarked(temp))
+                            continue;
+
                         if (temp.y >= 0 && temp.y < gridWidth && temp.z >= 0 && temp.z < gridHeight)
                         {
+                           
                             open.Add(temp);
                             //StartCoroutine("MarkTile",temp);
                             MarkTile(temp);
@@ -81,54 +94,66 @@ namespace AutoDriveSimulator
 
                 }
                 CloseTile(next);
-                //yield return new WaitForSeconds(0.2f);
-                yield return new WaitForFixedUpdate();
+                yield return new WaitForSeconds(0.1f);
+               //yield return new WaitForFixedUpdate();
 
             }
 
             //for (int j = 0; j < 80; j++)
             //{
-               
+
             //}
-            
+
         }
 
-        public bool IsStep(Vector3 next) {
+        public bool IsStep(Vector3 next)
+        {
 
             string key = $"Tile({next.y},{next.z})";
-          //  print(key);
-            if (TileGrid.tileDic.ContainsKey(key)){
+            //  print(key);
+            if (TileGrid.tileDic.ContainsKey(key))
+            {
                 tile = TileGrid.tileDic[key];
                 if (tile.TileType != TileType.Obsticle)
+                {
                     return !TileGrid.tileDic[key].isStepped;
+                }
                 else return false;
             }
-           
+
             else return false;
-        
+
         }
 
         public void CloseTile(Vector3 tileVector)
         {
             string key = $"Tile({tileVector.y},{tileVector.z})";
-            tile=TileGrid.tileDic[key];
+            tile = TileGrid.tileDic[key];
             tile.isStepped = true;
             tile.SetColor(Color.gray);
-            
+
         }
 
-     
+        public bool IsMarked(Vector3 tileVector)
+        {
+            string key = $"Tile({tileVector.y},{tileVector.z})";
+            tile = TileGrid.tileDic[key];
+
+            return tile.isMarked;
+        }
+
 
         public void MarkTile(Vector3 tileVector)
         {
-            
+
             string key = $"Tile({tileVector.y},{tileVector.z})";
             tile = TileGrid.tileDic[key];
+            tile.isMarked = true;
             tile.SetColor(Color.green);
 
         }
 
-        
+
 
         public class SearchVectorComparer : IComparer<Vector3>
         {
