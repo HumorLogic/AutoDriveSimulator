@@ -12,6 +12,7 @@ namespace AutoDriveSimulator
         public Color obsticleColor = new Color(0, 0, 0);
         public Color initialColor = new Color(1, 1,1);
         public Color destinationColor = new Color(1f, 0.2f, 0.2f);
+        public Color pathColor = new Color(0.5f, 0.5f, 0.5f);
         public Vector2[] Obsticles;
         public Vector2 initialPosition;
         public Vector2 destination;
@@ -20,10 +21,12 @@ namespace AutoDriveSimulator
 
 
         public static Dictionary<string, Tile> tileDic=new Dictionary<string, Tile>();
+        private static Color _pathColor;
 
        
         void Start()
         {
+            InitialData();
             tileNum = Rows * Cols;
             DrawGrid();
             AeraSet();
@@ -41,9 +44,9 @@ namespace AutoDriveSimulator
         private void DrawGrid()
         {
             
-            for (int row = 0; row < 10; row++)
+            for (int row = 0; row < Rows; row++)
             {
-                for (int col = 0; col < 10; col++)
+                for (int col = 0; col < Cols; col++)
                 {
                     
                     Tile tile = new Tile(this, row, col, TileType.Normal);
@@ -94,6 +97,20 @@ namespace AutoDriveSimulator
 
                 }
             }
+        }
+
+
+        public static void SetTilePathColor(Vector2 vector)
+        {
+            string key = $"Tile({vector.x},{vector.y})";
+            Tile tile = tileDic[key];
+            tile.SetColor(_pathColor);
+
+        }
+
+        private void InitialData()
+        {
+            _pathColor = pathColor;
         }
 
         public static void SetTileClosed(int row,int col)

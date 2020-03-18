@@ -493,7 +493,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 9.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -517,7 +517,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141992514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: -4.5, z: -1}
+  m_LocalPosition: {x: 8.5, y: -6.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -682,8 +682,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b73891c6d2eb846980e525041e97ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rows: 10
-  Cols: 10
+  Rows: 15
+  Cols: 18
   tilePrefab: {fileID: 8973858277672632448, guid: d72c7c67219a18249aebf1a8162cba23,
     type: 3}
   obsticleColor: {r: 0, g: 0, b: 0, a: 0}
@@ -696,8 +696,10 @@ MonoBehaviour:
   - {x: 8, y: 8}
   - {x: 7, y: 7}
   - {x: 3, y: 4}
-  initialPosition: {x: 9, y: 0}
-  destination: {x: 0, y: 9}
+  - {x: 6, y: 5}
+  - {x: 6, y: 6}
+  initialPosition: {x: 11, y: 3}
+  destination: {x: 2, y: 13}
 --- !u!4 &1368772481
 Transform:
   m_ObjectHideFlags: 0

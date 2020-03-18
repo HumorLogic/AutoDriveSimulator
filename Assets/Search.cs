@@ -18,6 +18,8 @@ namespace AutoDriveSimulator
         private int gridWidth;
         private int gridHeight;
         private Vector3 desVector;  //目的地
+        private bool foundDes;
+        private Dictionary<string, Vector2> action = new Dictionary<string, Vector2>();
 
 
         // Start is called before the first frame update
@@ -31,6 +33,7 @@ namespace AutoDriveSimulator
             tileGrid = GameObject.Find("Grid").GetComponent<TileGrid>();
             gridHeight = tileGrid.Rows;
             gridWidth = tileGrid.Cols;
+            print(gridWidth);
             x = (int)tileGrid.initialPosition.x;
             y = (int)tileGrid.initialPosition.y;
             g = 0;
@@ -58,7 +61,7 @@ namespace AutoDriveSimulator
         public IEnumerator SearchMethod()
         {
             int count = 0;
-            while (open.Count>0)
+            while (!foundDes)
             {
                 print(count);
                 count++;
@@ -66,7 +69,7 @@ namespace AutoDriveSimulator
                 print(open[0]);
                 next = open[0];
                 open.RemoveAt(0);
-                print(open.Count);
+                //print(open.Count);
                
 
                 //next=open.
@@ -75,36 +78,54 @@ namespace AutoDriveSimulator
                     Vector3 temp;
                     temp = next + motion[i];
 
-                  
-
                     if (IsStep(temp))
                     {
                         if (IsMarked(temp))
                             continue;
 
-                        if (temp.y >= 0 && temp.y < gridWidth && temp.z >= 0 && temp.z < gridHeight)
+                        if (temp.y >= 0 && temp.y < gridHeight && temp.z >= 0 && temp.z < gridWidth)
                         {
-                           
                             open.Add(temp);
-                            //StartCoroutine("MarkTile",temp);
                             MarkTile(temp);
-
+                            string name = $"Tile({temp.y},{temp.z})";
+                            action[name] = new Vector2(motion[i].y, motion[i].z);
+                            g = (int)temp.x;
                         }
                     }
 
                 }
                 CloseTile(next);
-                yield return new WaitForSeconds(0.1f);
-               //yield return new WaitForFixedUpdate();
+                //yield return new WaitForSeconds(0.1f);
+               yield return new WaitForFixedUpdate();
 
             }
+            DrawPath(action);
 
-            //for (int j = 0; j < 80; j++)
-            //{
-
-            //}
-
+         
         }
+
+        public void DrawPath(Dictionary<string,Vector2> dic)
+        {
+
+            Vector2 des = new Vector2(tileGrid.destination.x, tileGrid.destination.y);
+            Vector2 current = des;
+            string key = $"Tile({des.x},{des.y})";
+            for (int i = 1; i < g; i++)
+            {
+                Vector2 pos = current - action[key];
+                TileGrid.SetTilePathColor(pos);
+                current = pos;
+                key= $"Tile({pos.x},{pos.y})";
+            }
+        }
+
+        //public void SetTilePathColor(Vector2 vector)
+        //{
+        //    string key = $"Tile({vector.x},{vector.y})";
+        //    Tile tile = TileGrid.tileDic[key];
+        //    tile.SetColor(Color.blue);
+            
+        //}
 
         public bool IsStep(Vector3 next)
         {
@@ -130,7 +151,9 @@ namespace AutoDriveSimulator
             string key = $"Tile({tileVector.y},{tileVector.z})";
             tile = TileGrid.tileDic[key];
             tile.isStepped = true;
-            tile.SetColor(Color.gray);
+
+            if(tile.TileType==TileType.Normal)
+                tile.SetColor(Color.gray);
 
         }
 
@@ -149,7 +172,13 @@ namespace AutoDriveSimulator
             string key = $"Tile({tileVector.y},{tileVector.z})";
             tile = TileGrid.tileDic[key];
             tile.isMarked = true;
-            tile.SetColor(Color.green);
+            if(tile.TileType!=TileType.Destination)
+                tile.SetColor(Color.green);
+            if (tile.TileType == TileType.Destination)
+            {
+                foundDes = true;
+            }
+
 
         }
 
