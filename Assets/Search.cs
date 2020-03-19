@@ -41,6 +41,7 @@ namespace AutoDriveSimulator
             desVector = new Vector3(0, (int)tileGrid.destination.x, (int)tileGrid.destination.y);
 
             next = new Vector3(g, x, y);
+            
             open.Add(next);
 
 
@@ -61,6 +62,7 @@ namespace AutoDriveSimulator
         public IEnumerator SearchMethod()
         {
             int count = 0;
+            MarkTile(next);
             while (!foundDes)
             {
                 print(count);
@@ -153,7 +155,7 @@ namespace AutoDriveSimulator
             tile.isStepped = true;
 
             if(tile.TileType==TileType.Normal)
-                tile.SetColor(Color.gray);
+                tile.SetColor(TileGrid._steppedColor);
 
         }
 
@@ -172,13 +174,14 @@ namespace AutoDriveSimulator
             string key = $"Tile({tileVector.y},{tileVector.z})";
             tile = TileGrid.tileDic[key];
             tile.isMarked = true;
-            if(tile.TileType!=TileType.Destination)
+            if(tile.TileType!=TileType.Destination&&tile.TileType!=TileType.Initial)
                 tile.SetColor(Color.green);
             if (tile.TileType == TileType.Destination)
             {
                 foundDes = true;
             }
 
+            tile.SetCost(tileVector.x.ToString());
 
         }
 

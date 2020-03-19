@@ -229,10 +229,10 @@ RectTransform:
   m_Father: {fileID: 522759422}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400.5, y: 368.8}
-  m_SizeDelta: {x: 233.2, y: 38.45}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 159.5, y: -34.200012}
+  m_SizeDelta: {x: 233.20001, y: 38.450012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &408847491
 MonoBehaviour:
@@ -557,9 +557,9 @@ RectTransform:
   m_Father: {fileID: 522759422}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 405, y: 338}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -132, y: -37}
   m_SizeDelta: {x: 160, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1215479365
@@ -689,6 +689,7 @@ MonoBehaviour:
   obsticleColor: {r: 0, g: 0, b: 0, a: 0}
   initialColor: {r: 1, g: 0.9559718, b: 0.13333333, a: 1}
   destinationColor: {r: 1, g: 0.11320752, b: 0.1538892, a: 1}
+  pathColor: {r: 0, g: 0.89031357, b: 0.990566, a: 1}
   Obsticles:
   - {x: 4, y: 4}
   - {x: 5, y: 4}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AutoDriveSimulator
 {
@@ -26,9 +27,11 @@ namespace AutoDriveSimulator
         public bool isMarked { get; set; }
 
        public string Name { get; private set; }
-        public TileType TileType { get; set; }
+       
+       public string gValue { get; set; }
+       public TileType TileType { get; set; }
 
-        private GameObject tileObj;
+       private GameObject tileObj;
 
         public Tile(TileGrid grid, int row, int col,TileType tileType)
         {
@@ -55,7 +58,13 @@ namespace AutoDriveSimulator
         {
             tileObj.GetComponent<SpriteRenderer>().color = color;
         }
-        
+
+        public void SetCost(string gValue)
+        {
+            this.gValue = gValue;
+            tileObj.GetComponentInChildren<Text>().text = gValue;
+        }
+
     }
 }
 

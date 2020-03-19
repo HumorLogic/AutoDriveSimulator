@@ -13,6 +13,7 @@ namespace AutoDriveSimulator
         public Color initialColor = new Color(1, 1,1);
         public Color destinationColor = new Color(1f, 0.2f, 0.2f);
         public Color pathColor = new Color(0.5f, 0.5f, 0.5f);
+        public Color steppedColor = new Color(0.6f, 0.6f, 0.6f);
         public Vector2[] Obsticles;
         public Vector2 initialPosition;
         public Vector2 destination;
@@ -22,6 +23,7 @@ namespace AutoDriveSimulator
 
         public static Dictionary<string, Tile> tileDic=new Dictionary<string, Tile>();
         private static Color _pathColor;
+        public static Color _steppedColor;
 
        
         void Start()
@@ -99,7 +101,6 @@ namespace AutoDriveSimulator
             }
         }
 
-
         public static void SetTilePathColor(Vector2 vector)
         {
             string key = $"Tile({vector.x},{vector.y})";
@@ -111,6 +112,7 @@ namespace AutoDriveSimulator
         private void InitialData()
         {
             _pathColor = pathColor;
+            _steppedColor = steppedColor;
         }
 
         public static void SetTileClosed(int row,int col)
