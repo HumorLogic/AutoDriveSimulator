@@ -690,6 +690,7 @@ MonoBehaviour:
   initialColor: {r: 1, g: 0.9559718, b: 0.13333333, a: 1}
   destinationColor: {r: 1, g: 0.11320752, b: 0.1538892, a: 1}
   pathColor: {r: 0, g: 0.89031357, b: 0.990566, a: 1}
+  steppedColor: {r: 0.6201495, g: 0.6320754, b: 0.6320754, a: 1}
   Obsticles:
   - {x: 4, y: 4}
   - {x: 5, y: 4}
@@ -700,7 +701,7 @@ MonoBehaviour:
   - {x: 6, y: 5}
   - {x: 6, y: 6}
   initialPosition: {x: 11, y: 3}
-  destination: {x: 2, y: 13}
+  destination: {x: 4, y: 15}
 --- !u!4 &1368772481
 Transform:
   m_ObjectHideFlags: 0
