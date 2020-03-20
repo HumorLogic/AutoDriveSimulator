@@ -663,6 +663,7 @@ GameObject:
   - component: {fileID: 1368772481}
   - component: {fileID: 1368772480}
   - component: {fileID: 1368772482}
+  - component: {fileID: 1368772483}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -677,7 +678,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368772479}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01b73891c6d2eb846980e525041e97ce, type: 3}
   m_Name: 
@@ -723,8 +724,38 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368772479}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47630d21ad67d014e868c266774cbad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1368772483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368772479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d64e05147de9f024bae036ce9d87cc45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rows: 15
+  cols: 18
+  nodePrefab: {fileID: 8973858277672632448, guid: d72c7c67219a18249aebf1a8162cba23,
+    type: 3}
+  nodeColor: {r: 0.15, g: 0.26, b: 0.61, a: 1}
+  obsticleColor: {r: 0, g: 0, b: 0, a: 1}
+  startColor: {r: 1, g: 0.95, b: 0.13, a: 1}
+  destinationColor: {r: 1, g: 0.1, b: 0.1, a: 1}
+  pathColor: {r: 0, g: 0.89, b: 0.99, a: 1}
+  steppedColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
+  obsticles:
+  - {x: 6, y: 6}
+  - {x: 7, y: 6}
+  - {x: 8, y: 6}
+  - {x: 9, y: 6}
+  - {x: 8, y: 7}
+  startPosition: {x: 10, y: 3}
+  destination: {x: 2, y: 15}

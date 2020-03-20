@@ -148,16 +148,7 @@ namespace AutoDriveSimulator
 
         }
 
-        public void CloseTile(Vector3 tileVector)
-        {
-            string key = $"Tile({tileVector.y},{tileVector.z})";
-            tile = TileGrid.tileDic[key];
-            tile.isStepped = true;
-
-            if(tile.TileType==TileType.Normal)
-                tile.SetColor(TileGrid._steppedColor);
-
-        }
+      
 
         public bool IsMarked(Vector3 tileVector)
         {
@@ -166,7 +157,6 @@ namespace AutoDriveSimulator
 
             return tile.isMarked;
         }
-
 
         public void MarkTile(Vector3 tileVector)
         {
@@ -185,7 +175,16 @@ namespace AutoDriveSimulator
 
         }
 
+        public void CloseTile(Vector3 tileVector)
+        {
+            string key = $"Tile({tileVector.y},{tileVector.z})";
+            tile = TileGrid.tileDic[key];
+            tile.isStepped = true;
 
+            if (tile.TileType == TileType.Normal)
+                tile.SetColor(TileGrid._steppedColor);
+
+        }
 
         public class SearchVectorComparer : IComparer<Vector3>
         {
