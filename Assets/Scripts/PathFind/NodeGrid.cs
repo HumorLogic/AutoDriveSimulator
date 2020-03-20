@@ -3,9 +3,11 @@
 /// Github : https://github.com/HumorLogic
 
 #region Includes
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 #endregion
 
 namespace AutoDriveSimulator
@@ -16,34 +18,36 @@ namespace AutoDriveSimulator
     /// </summary>
     public class NodeGrid : MonoBehaviour
     {
+        #region Members
+        [Header("Grid Size")]
         public int rows = 15;
         public int cols = 18;
         public GameObject nodePrefab;
+
+        [Header("Grid Color")]
         public Color nodeColor = new Color(0.15f, 0.26f, 0.61f);
         public Color obsticleColor = new Color(0, 0, 0);
         public Color startColor = new Color(1, 0.95f, 0.13f);
         public Color destinationColor = new Color(1f, 0.1f, 0.1f);
         public Color pathColor = new Color(0f, 0.89f, 0.99f);
         public Color steppedColor = new Color(0.6f, 0.6f, 0.6f);
+
+        [Header("Node Position")]
         public Vector2[] obsticles;
         public Vector2 startPosition;
         public Vector2 destination;
 
-        private static int nodeNum;
+        
 
 
         public  Dictionary<Vector2, Node> nodeDic = new Dictionary<Vector2, Node>();
         private static Color _pathColor;
         public static Color _steppedColor;
 
+        #endregion
 
         void Start()
         {
-            //InitialData();
-            //nodeNum = rows * cols;
-
-            //AeraSet();
-
             DrawGrid();
         }
 

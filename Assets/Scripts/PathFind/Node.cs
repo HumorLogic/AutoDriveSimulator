@@ -36,10 +36,11 @@ namespace AutoDriveSimulator
         public int Row { get; private set; }
         public int Col { get; private set; }
         public Vector2 Pos { get; private set; }
-        public bool isStepped { get; set; }
-        public bool isMarked { get; set; }
+        public bool IsStepped { get; set; }
+        public bool IsMarked { get; set; }
         public string Name { get; private set; }
 
+        public Vector3 State { get; set;}
         public int gValue { get; set; }
         public GameObject nodeObj { get; private set; }
 
@@ -62,8 +63,8 @@ namespace AutoDriveSimulator
             NodeType = type;
             Pos = new Vector2(Row, Col);
             Name = $"Node({Row},{Col})";
-            isStepped = false;
-            isMarked = false;
+            IsStepped = false;
+            IsMarked = false;
 
         }
 
@@ -106,6 +107,18 @@ namespace AutoDriveSimulator
         }
 
         #endregion
+
     }
 
+    /// <summary>
+    /// NodeCompare class
+    /// </summary>
+    public class NodeCompare : IComparer<Node>
+    {
+        public int Compare(Node x, Node y)
+        {
+            var compare = x.gValue - y.gValue;
+            return compare < 0 ? -1 : compare > 0 ? 1 : 0;
+        }
+    }
 }
