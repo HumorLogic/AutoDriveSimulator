@@ -750,6 +750,7 @@ MonoBehaviour:
   startColor: {r: 1, g: 0.95, b: 0.13, a: 1}
   destinationColor: {r: 1, g: 0.1, b: 0.1, a: 1}
   pathColor: {r: 0, g: 0.89, b: 0.99, a: 1}
+  markColor: {r: 0, g: 1, b: 0, a: 1}
   steppedColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   obsticles:
   - {x: 6, y: 6}
@@ -758,4 +759,4 @@ MonoBehaviour:
   - {x: 9, y: 6}
   - {x: 8, y: 7}
   startPosition: {x: 10, y: 3}
-  destination: {x: 2, y: 15}
+  destination: {x: 3, y: 13}

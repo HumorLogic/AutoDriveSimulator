@@ -1,5 +1,5 @@
 ﻿/// Author : Humor Logic 雍
-/// URL : http://www.humorlogic.com/
+/// URL : http://www.humorlogic.com
 /// Github : https://github.com/HumorLogic
 
 #region Includes
@@ -110,6 +110,7 @@ namespace AutoDriveSimulator
 
     }
 
+
     /// <summary>
     /// NodeCompare class
     /// </summary>
@@ -121,4 +122,5 @@ namespace AutoDriveSimulator
             return compare < 0 ? -1 : compare > 0 ? 1 : 0;
         }
     }
+
 }

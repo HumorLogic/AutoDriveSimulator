@@ -30,6 +30,7 @@ namespace AutoDriveSimulator
         public Color startColor = new Color(1, 0.95f, 0.13f);
         public Color destinationColor = new Color(1f, 0.1f, 0.1f);
         public Color pathColor = new Color(0f, 0.89f, 0.99f);
+        public Color markColor = new Color(0, 1, 0);
         public Color steppedColor = new Color(0.6f, 0.6f, 0.6f);
 
         [Header("Node Position")]
@@ -38,7 +39,8 @@ namespace AutoDriveSimulator
         public Vector2 destination;
 
         
-
+        public Node startNode { get; private set; }
+        public Node desNode { get; private set; }
 
         public  Dictionary<Vector2, Node> nodeDic = new Dictionary<Vector2, Node>();
         private static Color _pathColor;
@@ -49,9 +51,19 @@ namespace AutoDriveSimulator
         void Start()
         {
             DrawGrid();
+            InitialData();
         }
 
-      
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                PathFinder.DoSearch();
+                print("1 Key pressed");
+            }
+        }
+
+
         /// <summary>
         /// Draw the Grid
         /// </summary>
@@ -74,7 +86,6 @@ namespace AutoDriveSimulator
             {
                 for (int c= 0; c < cols; c++)
                 {
-
                     Node node = new Node(this, r, c, NodeType.Normal);
                     node.InitNode(transform, nodePrefab);
                     nodeDic.Add(node.Pos, node);
@@ -178,19 +189,19 @@ namespace AutoDriveSimulator
 
         private void InitialData()
         {
-            _pathColor = pathColor;
-            _steppedColor = steppedColor;
+            //set NodeGrid's startNode
+            startNode = nodeDic[startPosition];
+            startNode.State = new Vector3(startPosition.x, startPosition.y, 0);
+            nodeDic[startPosition] = startNode;
+
+            //set NodeGerid's desNode
+            desNode = nodeDic[destination];
+            desNode.State = new Vector3(destination.x, destination.y, 0);
+            nodeDic[destination] = desNode;
+
         }
 
-        public static void SetnodeClosed(int row, int col)
-        {
-            //if (nodeDic.Count == nodeNum)
-            //{
-            //    string key = $"node({row},{col})";
-            //    nodeDic[key].isStepped = true;
-            //    nodeDic[key].SetColor(Color.gray);
-            //}
-        }
+        
     }
 }
 
