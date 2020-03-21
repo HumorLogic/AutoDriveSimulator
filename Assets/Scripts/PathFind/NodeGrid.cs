@@ -1,5 +1,5 @@
 ﻿/// Author : Humor Logic 雍
-/// URL : http://www.humorlogic.com/
+/// URL : http://www.humorlogic.com
 /// Github : https://github.com/HumorLogic
 
 #region Includes
@@ -48,11 +48,11 @@ namespace AutoDriveSimulator
         public Node desNode { get; private set; }
 
         public  Dictionary<Vector2, Node> nodeDic = new Dictionary<Vector2, Node>();
-        private static Color _pathColor;
-        public static Color _steppedColor;
+
 
         #endregion
 
+        #region Methods
         void Start()
         {
             DrawGrid();
@@ -142,56 +142,9 @@ namespace AutoDriveSimulator
         }
 
 
-
         /// <summary>
-        /// 设置贴块类型和颜色等属性
+        /// Initial GridNode data
         /// </summary>
-        private void AeraSet()
-        {
-            foreach (var item in obsticles)
-            {
-                //string nodeName = $"node({item.x},{item.y})";
-                //print(nodeName);
-                nodeDic[item].NodeType = NodeType.Obsticle;
-            }
-
-            //string initialName = $"node({initialPosition.x},{initialPosition.y})";
-            
-
-            //string desName = $"node({destination.x},{destination.y})";
-            
-
-            foreach (var item in nodeDic)
-            {
-                Node node = item.Value;
-                switch (node.NodeType)
-                {
-                    case NodeType.Normal:
-                        node.SetColor(new Color(0.15f, 0.26f, 0.61f));
-                        break;
-                    case NodeType.Obsticle:
-                        node.SetColor(Color.black);
-                        //node.isStepped= true;
-                        break;
-                    case NodeType.Start:
-                        node.SetColor(startColor);
-                        break;
-                    case NodeType.Destination:
-                        node.SetColor(destinationColor);
-                        break;
-
-                }
-            }
-        }
-
-        public static void SetnodePathColor(Vector2 vector)
-        {
-            string key = $"node({vector.x},{vector.y})";
-           // Node node = nodeDic[key];
-         //   node.SetColor(_pathColor);
-
-        }
-
         private void InitialData()
         {
             //set NodeGrid's startNode
@@ -206,7 +159,8 @@ namespace AutoDriveSimulator
 
         }
 
-        
+        #endregion
+
     }
 }
 

@@ -10,6 +10,7 @@ using UnityEngine;
 
 
 #endregion
+
 namespace AutoDriveSimulator
 {
     #region IPathFindAlgorithm interface
@@ -25,6 +26,7 @@ namespace AutoDriveSimulator
     }
 
     #endregion
+
 
     #region PathFindAlgorithm abstract class
 
@@ -135,36 +137,47 @@ namespace AutoDriveSimulator
 
     #endregion
 
+
+    #region IVisualStep interface
+
     /// <summary>
     /// IVisualStep interface
     /// </summary>
     public interface IVisualStep
     {
         void MarkNode(Node node);
-        void MarkNodeStepped(Node node);
+        void MarkSteppedNode(Node node);
         void ColorPath(List<Node> nodes);
     }
 
-    public  class VisualStep : IVisualStep
+    #endregion
+
+
+    #region VisualStep class
+
+    /// <summary>
+    /// VisualStep class
+    /// </summary>
+    public class VisualStep : IVisualStep
     {
         private NodeGrid nodeGrid;
         public VisualStep(NodeGrid grid)
         {
             nodeGrid = grid;
         }
+
         public  void MarkNode(Node node)
         {
             if (node.NodeType == NodeType.Normal&& node.IsMarked)
                 node.SetColor(nodeGrid.markColor);
         }
 
-        public void MarkNodeStepped(Node node)
+        public void MarkSteppedNode(Node node)
         {
             if (node.IsStepped&&node.NodeType==NodeType.Normal)
                 node.SetColor(nodeGrid.steppedColor);
         }
-
-
+        
         public  void ColorPath(List<Node> nodes)
         {
             foreach (var item in nodes)
@@ -177,5 +190,6 @@ namespace AutoDriveSimulator
         
     }
 
+    #endregion
 
 }

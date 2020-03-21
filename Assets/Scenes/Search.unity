@@ -541,7 +541,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1215479364
 RectTransform:
   m_ObjectHideFlags: 0
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1368772482}
+      - m_Target: {fileID: 0}
         m_MethodName: StartSearch
         m_Mode: 1
         m_Arguments:
@@ -661,8 +661,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1368772481}
-  - component: {fileID: 1368772480}
-  - component: {fileID: 1368772482}
   - component: {fileID: 1368772483}
   m_Layer: 0
   m_Name: Grid
@@ -671,38 +669,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1368772480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1368772479}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01b73891c6d2eb846980e525041e97ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Rows: 15
-  Cols: 18
-  tilePrefab: {fileID: 8973858277672632448, guid: d72c7c67219a18249aebf1a8162cba23,
-    type: 3}
-  obsticleColor: {r: 0, g: 0, b: 0, a: 0}
-  initialColor: {r: 1, g: 0.9559718, b: 0.13333333, a: 1}
-  destinationColor: {r: 1, g: 0.11320752, b: 0.1538892, a: 1}
-  pathColor: {r: 0, g: 0.89031357, b: 0.990566, a: 1}
-  steppedColor: {r: 0.6201495, g: 0.6320754, b: 0.6320754, a: 1}
-  Obsticles:
-  - {x: 4, y: 4}
-  - {x: 5, y: 4}
-  - {x: 6, y: 4}
-  - {x: 8, y: 8}
-  - {x: 7, y: 7}
-  - {x: 3, y: 4}
-  - {x: 6, y: 5}
-  - {x: 6, y: 6}
-  initialPosition: {x: 11, y: 3}
-  destination: {x: 4, y: 15}
 --- !u!4 &1368772481
 Transform:
   m_ObjectHideFlags: 0
@@ -717,18 +683,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1368772482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1368772479}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47630d21ad67d014e868c266774cbad3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1368772483
 MonoBehaviour:
   m_ObjectHideFlags: 0

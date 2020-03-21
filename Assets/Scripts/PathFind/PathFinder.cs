@@ -35,10 +35,11 @@ namespace AutoDriveSimulator
         {
             nodeList = new List<Node>();
             pathNodes = new List<Node>();
-            //pathDic = new Dictionary<Node, Vector3>();
         }
 
-        
+        /// <summary>
+        /// Search Algorithm do step method
+        /// </summary>
         public override async void DoStep()
         {
             VisualStep visual = new VisualStep(Grid);
@@ -66,7 +67,7 @@ namespace AutoDriveSimulator
                     }
                 }
                 current.IsStepped = true;
-                visual.MarkNodeStepped(current);
+                visual.MarkSteppedNode(current);
                
             }
 
@@ -74,18 +75,32 @@ namespace AutoDriveSimulator
             visual.ColorPath(pathNodes);
         }
 
+        /// <summary>
+        /// Get path node list
+        /// </summary>
+        /// <param name="start">start node</param>
+        /// <param name="des">destination node</param>
         public override void GetPath(Node start,Node des)
         {
-            //pathNodes = new List<Node>();
             Vector3 state = des.State;
-            Node node;
+            Node node = des;
+           // int length = des.gValue - start.gValue;
+            
+            
             for (int i = 0; i < des.gValue; i++)
             {
                 node = GetNode(state);
                 state -= motionDic[node];
                 pathNodes.Add(node);
             }
+            //while (node !=start)
+            //{
+            //    node = GetNode(state);
+            //    state -= motionDic[node];
+            //    pathNodes.Add(node);
+            //}
         }
+
     }
 }
 
