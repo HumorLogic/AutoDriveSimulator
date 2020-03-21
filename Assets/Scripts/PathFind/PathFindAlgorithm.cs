@@ -8,17 +8,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 #endregion
 namespace AutoDriveSimulator
 {
+    #region IPathFindAlgorithm interface
+
     /// <summary>
     /// IPathFindAlgorithm Interface
     /// </summary>
     public interface IPathFindAlgotithm
     {
         void DoStep();
+        void GetPath(Node start,Node des);
         IReadOnlyList<Node> GetNeighbors(Node node);
     }
+
+    #endregion
+
+    #region PathFindAlgorithm abstract class
 
     /// <summary>
     /// PathFindAlgorithm abstract class
@@ -29,10 +37,13 @@ namespace AutoDriveSimulator
 
         protected NodeGrid Grid;
         protected List<Node> nodeList;
+        protected Dictionary<Node, Vector3> motionDic;
         private Vector3[] motions = new Vector3[4] {new Vector3 (-1, 0, 1), new Vector3(1, 0, 1), new Vector3(0, -1, 1), new Vector3(0, 1, 1) };
+        protected List<Node> pathNodes;
 
         #endregion
 
+        #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
@@ -40,12 +51,22 @@ namespace AutoDriveSimulator
         protected PathFindAlgorithm(NodeGrid nodeGrid)
         {
             Grid = nodeGrid;
+            motionDic = new Dictionary<Node, Vector3>();
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// abstract method do step
         /// </summary>
         public abstract void DoStep();
+
+        /// <summary>
+        /// get the path 
+        /// </summary>
+        public abstract void GetPath(Node start,Node des);
 
 
         /// <summary>
@@ -70,8 +91,9 @@ namespace AutoDriveSimulator
                 {
                     nextNode= GetNode(next);
                     list.Add(nextNode);
+                    if (!motionDic.ContainsKey(nextNode))
+                        motionDic.Add(nextNode, motions[i]);
                 }
-                
 
             }
 
@@ -104,13 +126,21 @@ namespace AutoDriveSimulator
             node.State = v;
             node.gValue = (int)v.z;
             return node;
-        } 
-        
+        }
+
+        #endregion
+
     }
 
+    #endregion
+
+    /// <summary>
+    /// IVisualStep interface
+    /// </summary>
     public interface IVisualStep
     {
         void MarkNode(Node node);
+        void MarkNodeStepped(Node node);
         void ColorPath(List<Node> nodes);
     }
 
@@ -123,18 +153,23 @@ namespace AutoDriveSimulator
         }
         public  void MarkNode(Node node)
         {
-            if (node.NodeType == NodeType.Normal)
-            {
-                if (node.IsMarked)
-                    node.SetColor(nodeGrid.markColor);
-                if (node.IsStepped)
-                    node.SetColor(nodeGrid.steppedColor);
-            }
-           else return ;
+            if (node.NodeType == NodeType.Normal&& node.IsMarked)
+                node.SetColor(nodeGrid.markColor);
         }
+
+        public void MarkNodeStepped(Node node)
+        {
+            if (node.IsStepped&&node.NodeType==NodeType.Normal)
+                node.SetColor(nodeGrid.steppedColor);
+        }
+
+
         public  void ColorPath(List<Node> nodes)
         {
-            
+            foreach (var item in nodes)
+            {
+                item.SetColor(nodeGrid.pathColor);
+            }
         }
 
         
