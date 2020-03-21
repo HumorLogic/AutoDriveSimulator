@@ -97,12 +97,10 @@ namespace AutoDriveSimulator
 
 
         /// <summary>
-        /// Set the cost for this node
+        /// Display the cost of node
         /// </summary>
-        /// <param name="gValue">cost value</param>
-        public void SetCost(int gValue)
+        public void DisplayCost()
         {
-            this.gValue = gValue;
             nodeObj.GetComponentInChildren<Text>().text = gValue.ToString();
         }
 

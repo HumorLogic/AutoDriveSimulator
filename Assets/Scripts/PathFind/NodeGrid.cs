@@ -19,6 +19,11 @@ namespace AutoDriveSimulator
     public class NodeGrid : MonoBehaviour
     {
         #region Members
+
+        [Header("Path Fimd Set")]
+        public int delayTime = 10;
+        public bool displayCost = false;
+
         [Header("Grid Size")]
         public int rows = 15;
         public int cols = 18;
@@ -38,7 +43,7 @@ namespace AutoDriveSimulator
         public Vector2 startPosition;
         public Vector2 destination;
 
-        
+       
         public Node startNode { get; private set; }
         public Node desNode { get; private set; }
 

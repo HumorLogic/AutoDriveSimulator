@@ -93,6 +93,7 @@ namespace AutoDriveSimulator
                     list.Add(nextNode);
                     if (!motionDic.ContainsKey(nextNode))
                         motionDic.Add(nextNode, motions[i]);
+                    
                 }
 
             }
@@ -168,7 +169,8 @@ namespace AutoDriveSimulator
         {
             foreach (var item in nodes)
             {
-                item.SetColor(nodeGrid.pathColor);
+                if(item.NodeType==NodeType.Normal)
+                    item.SetColor(nodeGrid.pathColor);
             }
         }
 

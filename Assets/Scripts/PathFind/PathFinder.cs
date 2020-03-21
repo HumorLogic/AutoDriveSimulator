@@ -45,6 +45,8 @@ namespace AutoDriveSimulator
             Node current = Grid.startNode;
             nodeList.Add(current);
             current.IsMarked = true;
+            if (Grid.displayCost)
+                current.DisplayCost();
 
             while (!Grid.desNode.IsMarked)
             {
@@ -55,14 +57,16 @@ namespace AutoDriveSimulator
                     if (!item.IsMarked && item.NodeType != NodeType.Obsticle)
                     {
                         item.IsMarked = true;
-                        await Task.Delay(25);
+                        await Task.Delay(Grid.delayTime);
                         visual.MarkNode(item);
                         nodeList.Add(item);
+
+                        if (Grid.displayCost)
+                            item.DisplayCost();
                     }
                 }
                 current.IsStepped = true;
                 visual.MarkNodeStepped(current);
-                
                
             }
 
@@ -74,10 +78,12 @@ namespace AutoDriveSimulator
         {
             //pathNodes = new List<Node>();
             Vector3 state = des.State;
+            Node node;
             for (int i = 0; i < des.gValue; i++)
             {
-                state -= motionDic[des];
-                pathNodes.Add(GetNode(state));
+                node = GetNode(state);
+                state -= motionDic[node];
+                pathNodes.Add(node);
             }
         }
     }
