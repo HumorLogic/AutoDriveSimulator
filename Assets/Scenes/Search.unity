@@ -714,5 +714,8 @@ MonoBehaviour:
   - {x: 8, y: 6}
   - {x: 9, y: 6}
   - {x: 8, y: 7}
+  - {x: 10, y: 6}
+  - {x: 11, y: 6}
+  - {x: 8, y: 8}
   startPosition: {x: 10, y: 3}
   destination: {x: 4, y: 12}

@@ -46,8 +46,8 @@ namespace AutoDriveSimulator
        
         public Node startNode { get; private set; }
         public Node desNode { get; private set; }
-
         public  Dictionary<Vector2, Node> nodeDic = new Dictionary<Vector2, Node>();
+        private bool playedSearch;
 
 
         #endregion
@@ -63,8 +63,22 @@ namespace AutoDriveSimulator
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
+                displayCost = false;
+                if (playedSearch)
+                    InitialNodes();
                 PathFinder.DoSearch();
+                playedSearch = true;
                 print("1 Key pressed");
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                displayCost = true;
+                if (playedSearch)
+                    InitialNodes();
+                PathFinder.DoSearch();
+                playedSearch = true;
+                print("2 Key pressed");
             }
         }
 
@@ -76,7 +90,7 @@ namespace AutoDriveSimulator
         {
             ArrangeGrid(rows, cols);
             ResetNodeType();
-            InitialNodesColor();
+            InitialNodes();
         }
 
         /// <summary>
@@ -115,13 +129,14 @@ namespace AutoDriveSimulator
 
 
         /// <summary>
-        ///  Initial every node's color
+        ///  Initial every node's color and properties
         /// </summary>
-        private void InitialNodesColor()
+        private void InitialNodes()
         {
             foreach (var item in nodeDic)
             {
                 Node node = item.Value;
+                node.ResetNoed();
                 switch (node.NodeType)
                 {
                     case NodeType.Normal:
@@ -158,6 +173,8 @@ namespace AutoDriveSimulator
             nodeDic[destination] = desNode;
 
         }
+
+       
 
         #endregion
 

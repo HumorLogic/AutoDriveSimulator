@@ -104,6 +104,16 @@ namespace AutoDriveSimulator
             nodeObj.GetComponentInChildren<Text>().text = gValue.ToString();
         }
 
+        /// <summary>
+        /// Reset node properties
+        /// </summary>
+        public void ResetNoed()
+        {
+            IsStepped = false;
+            IsMarked = false;
+            nodeObj.GetComponentInChildren<Text>().text = null;
+        }
+
         #endregion
 
     }
