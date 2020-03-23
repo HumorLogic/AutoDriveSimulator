@@ -65,9 +65,14 @@ namespace AutoDriveSimulator
             {
                 displayCost = false;
                 if (playedSearch)
+                {
+                    InitialData();
                     InitialNodes();
-                PathFinder.DoSearch();
+                  
+                }
                 playedSearch = true;
+                PathFinder.DoSearch();
+                
                 print("1 Key pressed");
             }
             
@@ -75,9 +80,13 @@ namespace AutoDriveSimulator
             {
                 displayCost = true;
                 if (playedSearch)
+                {
+                    InitialData();
                     InitialNodes();
-                PathFinder.DoSearch();
+                    
+                }
                 playedSearch = true;
+                PathFinder.DoSearch();
                 print("2 Key pressed");
             }
         }
@@ -166,7 +175,7 @@ namespace AutoDriveSimulator
             startNode = nodeDic[startPosition];
             startNode.State = new Vector3(startPosition.x, startPosition.y, 0);
             nodeDic[startPosition] = startNode;
-
+           
             //set NodeGerid's desNode
             desNode = nodeDic[destination];
             desNode.State = new Vector3(destination.x, destination.y, 0);
@@ -174,6 +183,13 @@ namespace AutoDriveSimulator
 
         }
 
+
+        //private void ResetGrid()
+        //{
+        //    nodeDic.Clear();
+        //    DrawGrid();
+        //    InitialData();
+        //}
        
 
         #endregion

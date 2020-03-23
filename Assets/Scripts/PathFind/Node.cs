@@ -104,6 +104,7 @@ namespace AutoDriveSimulator
             nodeObj.GetComponentInChildren<Text>().text = gValue.ToString();
         }
 
+
         /// <summary>
         /// Reset node properties
         /// </summary>
@@ -112,6 +113,7 @@ namespace AutoDriveSimulator
             IsStepped = false;
             IsMarked = false;
             nodeObj.GetComponentInChildren<Text>().text = null;
+            gValue = (int)State.z;
         }
 
         #endregion
