@@ -713,10 +713,12 @@ MonoBehaviour:
   - {x: 6, y: 6}
   - {x: 6, y: 7}
   - {x: 6, y: 8}
-  - {x: 7, y: 8}
   - {x: 11, y: 8}
-  - {x: 11, y: 6}
+  - {x: 8, y: 8}
+  - {x: 9, y: 8}
   - {x: 10, y: 8}
   - {x: 6, y: 4}
+  - {x: 6, y: 3}
+  - {x: 11, y: 8}
   startPosition: {x: 10, y: 6}
   destination: {x: 6, y: 17}
