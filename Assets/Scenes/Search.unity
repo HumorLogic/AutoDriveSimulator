@@ -709,13 +709,14 @@ MonoBehaviour:
   markColor: {r: 0, g: 1, b: 0, a: 1}
   steppedColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
   obsticles:
+  - {x: 6, y: 5}
   - {x: 6, y: 6}
-  - {x: 7, y: 6}
-  - {x: 8, y: 6}
-  - {x: 9, y: 6}
-  - {x: 8, y: 7}
-  - {x: 10, y: 6}
+  - {x: 6, y: 7}
+  - {x: 6, y: 8}
+  - {x: 7, y: 8}
+  - {x: 11, y: 8}
   - {x: 11, y: 6}
-  - {x: 8, y: 8}
-  startPosition: {x: 10, y: 3}
-  destination: {x: 4, y: 12}
+  - {x: 10, y: 8}
+  - {x: 6, y: 4}
+  startPosition: {x: 10, y: 6}
+  destination: {x: 6, y: 17}

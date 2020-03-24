@@ -98,10 +98,10 @@ namespace AutoDriveSimulator
               
                 PathFinder.AStarSearch();
                 print("3 Key pressed");
-                foreach (var item in nodeDic)
-                {
-                    print(item.Value.State);
-                }
+                //foreach (var item in nodeDic)
+                //{
+                //    print(item.Value.State);
+                //}
             }
 
         }

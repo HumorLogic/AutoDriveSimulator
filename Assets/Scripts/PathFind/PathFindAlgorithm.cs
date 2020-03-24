@@ -65,10 +65,24 @@ namespace AutoDriveSimulator
         /// </summary>
         public abstract void DoStep();
 
+
         /// <summary>
-        /// get the path 
+        /// Get path node list
         /// </summary>
-        public abstract void GetPath(Node start,Node des);
+        /// <param name="start">start node</param>
+        /// <param name="des">destination node</param>
+        public void GetPath(Node start,Node des)
+        {
+            Vector3 state = des.State;
+            Node node = des;
+
+            for (int i = 0; i < des.gValue; i++)
+            {
+                node = GetNode(state);
+                state -= motionDic[node];
+                pathNodes.Add(node);
+            }
+        }
 
 
         /// <summary>

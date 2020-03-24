@@ -85,31 +85,8 @@ namespace AutoDriveSimulator
             visual.ColorPath(pathNodes);
         }
 
-        /// <summary>
-        /// Get path node list
-        /// </summary>
-        /// <param name="start">start node</param>
-        /// <param name="des">destination node</param>
-        public override void GetPath(Node start,Node des)
-        {
-            Vector3 state = des.State;
-            Node node = des;
-           // int length = des.gValue - start.gValue;
-            
-            
-            for (int i = 0; i < des.gValue; i++)
-            {
-                node = GetNode(state);
-                state -= motionDic[node];
-                pathNodes.Add(node);
-            }
-            //while (node !=start)
-            //{
-            //    node = GetNode(state);
-            //    state -= motionDic[node];
-            //    pathNodes.Add(node);
-            //}
-        }
+        
+        
 
     }
 
@@ -121,12 +98,15 @@ namespace AutoDriveSimulator
             pathNodes = new List<Node>();
         }
 
-        public override void DoStep()
+        public override async void DoStep()
         {
             VisualStep visual = new VisualStep(grid);
             Node current = grid.startNode;
             openList.Add(current);
             current.IsMarked = true;
+            if (grid.displayCost)
+                current.DisplayCost();
+
 
             while (!grid.desNode.IsStepped)
             {
@@ -141,12 +121,12 @@ namespace AutoDriveSimulator
                     {
                         item.IsMarked = true;
                         item.UpdateF();
-
+                        await Task.Delay(grid.delayTime);
                         visual.MarkNode(item);
                         openList.Add(item);
 
-                        //if (grid.displayCost)
-                        //item.DisplayHeuristic();
+                        if (grid.displayCost)
+                            item.DisplayCost();
                     }
                 }
                 current.IsStepped = true;
@@ -158,6 +138,10 @@ namespace AutoDriveSimulator
 
         }
 
+
+        /// <summary>
+        /// Get Heuristic value
+        /// </summary>
         public void GetHeuristic()
         {
           //  VisualStep visual = new VisualStep(grid);
@@ -194,23 +178,12 @@ namespace AutoDriveSimulator
                 item.Value.State = new Vector3(item.Value.State.x, item.Value.State.y, 0);
             }
 
+            motionDic.Clear();
+
         }
 
 
-
-        public override void GetPath(Node start, Node des)
-        {
-            Vector3 state = des.State;
-            Node node = des;
-
-            for (int i = 0; i < des.gValue; i++)
-            {
-                node = GetNode(state);
-                state -= motionDic[node];
-                pathNodes.Add(node);
-            }
-            
-        }
+       
     }
 }
 
