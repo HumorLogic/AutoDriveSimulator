@@ -42,6 +42,9 @@ namespace AutoDriveSimulator
 
         public Vector3 State { get; set;}
         public int gValue { get; set; }
+
+        public int hValue { get; set; }
+        public int fValue { get; set; }
         public GameObject nodeObj { get; private set; }
 
         #endregion
@@ -104,6 +107,15 @@ namespace AutoDriveSimulator
             nodeObj.GetComponentInChildren<Text>().text = gValue.ToString();
         }
 
+        public void DisplayHeuristic()
+        {
+            nodeObj.GetComponentInChildren<Text>().text = hValue.ToString();
+        }
+
+        public void UpdateF()
+        {
+            fValue = hValue + gValue;
+        }
 
         /// <summary>
         /// Reset node properties
@@ -129,6 +141,15 @@ namespace AutoDriveSimulator
         public int Compare(Node x, Node y)
         {
             var compare = x.gValue - y.gValue;
+            return compare < 0 ? -1 : compare > 0 ? 1 : 0;
+        }
+    }
+
+    public class NodeASatrCompare : IComparer<Node>
+    {
+        public int Compare(Node x, Node y)
+        {
+            var compare = x.fValue - y.fValue;
             return compare < 0 ? -1 : compare > 0 ? 1 : 0;
         }
     }

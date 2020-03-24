@@ -89,6 +89,21 @@ namespace AutoDriveSimulator
                 PathFinder.DoSearch();
                 print("2 Key pressed");
             }
+
+
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+              
+              
+                PathFinder.AStarSearch();
+                print("3 Key pressed");
+                foreach (var item in nodeDic)
+                {
+                    print(item.Value.State);
+                }
+            }
+
         }
 
 

@@ -37,8 +37,8 @@ namespace AutoDriveSimulator
     {
         #region Members
 
-        protected NodeGrid Grid;
-        protected List<Node> nodeList;
+        protected NodeGrid grid;
+        protected List<Node> openList;
         protected Dictionary<Node, Vector3> motionDic;
         private Vector3[] motions = new Vector3[4] {new Vector3 (-1, 0, 1), new Vector3(1, 0, 1), new Vector3(0, -1, 1), new Vector3(0, 1, 1) };
         protected List<Node> pathNodes;
@@ -52,7 +52,7 @@ namespace AutoDriveSimulator
         /// <param name="nodeGrid">NodeGrid class object</param>
         protected PathFindAlgorithm(NodeGrid nodeGrid)
         {
-            Grid = nodeGrid;
+            grid = nodeGrid;
             motionDic = new Dictionary<Node, Vector3>();
         }
 
@@ -89,7 +89,7 @@ namespace AutoDriveSimulator
             for (int i = 0; i < motions.Length; i++)
             {
                 next = node.State + motions[i];
-                if (next.x >= 0 && next.x < Grid.rows && next.y >= 0 && next.y < Grid.cols)
+                if (next.x >= 0 && next.x < grid.rows && next.y >= 0 && next.y < grid.cols)
                 {
                     nextNode= GetNode(next);
                     list.Add(nextNode);
@@ -110,9 +110,9 @@ namespace AutoDriveSimulator
         /// <returns></returns>
         protected Node ExtractMini()
         {
-            nodeList.Sort(new NodeCompare());
-            Node node = nodeList[0];
-            nodeList.RemoveAt(0);
+            openList.Sort(new NodeCompare());
+            Node node = openList[0];
+            openList.RemoveAt(0);
             return node;
         }
 
@@ -125,7 +125,7 @@ namespace AutoDriveSimulator
         protected Node GetNode(Vector3 v)
         {
             Vector2 key = new Vector2(v.x, v.y);
-            Node node = Grid.nodeDic[key];
+            Node node = grid.nodeDic[key];
             node.State = v;
             node.gValue = (int)v.z;
             return node;
