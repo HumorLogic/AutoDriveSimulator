@@ -125,6 +125,7 @@ namespace AutoDriveSimulator
             IsStepped = false;
             IsMarked = false;
             nodeObj.GetComponentInChildren<Text>().text = null;
+            State = new Vector3(State.x, State.y, 0);
             gValue = (int)State.z;
         }
 
@@ -145,7 +146,10 @@ namespace AutoDriveSimulator
         }
     }
 
-    public class NodeASatrCompare : IComparer<Node>
+    /// <summary>
+    /// NodeAStarCompare class
+    /// </summary>
+    public class NodeAStarCompare : IComparer<Node>
     {
         public int Compare(Node x, Node y)
         {

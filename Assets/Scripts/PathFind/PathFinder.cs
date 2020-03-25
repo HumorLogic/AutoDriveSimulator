@@ -98,6 +98,10 @@ namespace AutoDriveSimulator
             pathNodes = new List<Node>();
         }
 
+
+        /// <summary>
+        /// A* do step method
+        /// </summary>
         public override async void DoStep()
         {
             VisualStep visual = new VisualStep(grid);
@@ -110,7 +114,7 @@ namespace AutoDriveSimulator
 
             while (!grid.desNode.IsStepped)
             {
-                openList.Sort(new NodeASatrCompare());
+                openList.Sort(new NodeAStarCompare());
                 current = openList[0];
                 openList.RemoveAt(0);
 
@@ -172,10 +176,7 @@ namespace AutoDriveSimulator
 
             foreach (var item in grid.nodeDic)
             {
-                item.Value.IsMarked = false;
-                item.Value.IsStepped = false;
-                item.Value.gValue = 0;
-                item.Value.State = new Vector3(item.Value.State.x, item.Value.State.y, 0);
+                item.Value.ResetNoed();
             }
 
             motionDic.Clear();
