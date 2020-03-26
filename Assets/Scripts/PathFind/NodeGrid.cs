@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 #endregion
 
@@ -49,6 +50,9 @@ namespace AutoDriveSimulator
         public  Dictionary<Vector2, Node> nodeDic = new Dictionary<Vector2, Node>();
         private bool playedSearch;
 
+        private List<Vector2> obsList = new List<Vector2>();
+        private bool isSetObs;
+
 
         #endregion
 
@@ -56,12 +60,15 @@ namespace AutoDriveSimulator
         void Start()
         {
             DrawGrid();
-            InitialData();
+          //  InitialData();
+           
+
+            GameObject.Find("Toggle").GetComponent<Toggle>().onValueChanged.AddListener(isOn => OnObsticleSetToggleClosed());
         }
 
         void Update()
         {
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0)&&isSetObs)
             {
                 print("Mouse 0 clicker)");
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -70,6 +77,8 @@ namespace AutoDriveSimulator
                 {
                     Debug.Log(rayhit.collider.gameObject.name);
                     rayhit.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.black;
+                    AddObsToList(rayhit.collider.gameObject);
+                    print(rayhit.collider.gameObject.transform.position);
                    // print(rayhit.collider.gameObject.name);
                 }
             }
@@ -127,15 +136,52 @@ namespace AutoDriveSimulator
 
         }
 
+        //
+        private void AddObsToList(GameObject gameObject)
+        {
+            //obsList.Clear();
+            Vector2 v = new Vector2( -gameObject.transform.position.y, gameObject.transform.position.x);
+            obsList.Add(v);
+           // UpdateObsticleArray();
+        }
+
+        private void UpdateObsticleArray()
+        {
+            int length = obsticles.Length + obsList.Count; ;
+            Vector2[] newObsticles = new Vector2[length];
+            for (int i = 0; i < obsticles.Length; i++) 
+            { 
+                newObsticles[i] = obsticles[i];
+            }
+            for (int i = obsticles.Length; i < length; i++)
+            {
+                newObsticles[i] = obsList[i-obsticles.Length];
+            }
+            obsticles = newObsticles;
+            print(obsticles.Length);
+        }
+       
+        private void OnObsticleSetToggleClosed()
+        {
+            isSetObs = !isSetObs;
+            if (!isSetObs)
+            {
+                UpdateObsticleArray();
+                DrawGrid();
+            }
+            
+        }
 
         /// <summary>
         /// Draw the Grid
         /// </summary>
         private void DrawGrid()
         {
+           
             ArrangeGrid(rows, cols);
             ResetNodeType();
             InitialNodes();
+            InitialData();
         }
 
         /// <summary>
@@ -145,6 +191,7 @@ namespace AutoDriveSimulator
         /// <param name="cols">the grid's cols</param>
         private void ArrangeGrid(int rows,int cols)
         {
+            nodeDic.Clear();
 
             for (int r = 0; r < rows; r++)
             {
