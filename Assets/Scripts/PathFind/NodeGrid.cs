@@ -94,8 +94,16 @@ namespace AutoDriveSimulator
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-              
-              
+
+                
+                if (playedSearch)
+                {
+                    InitialData();
+                    InitialNodes();
+
+                }
+                playedSearch = true;
+
                 PathFinder.AStarSearch();
                 print("3 Key pressed");
                 //foreach (var item in nodeDic)

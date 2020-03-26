@@ -719,5 +719,5 @@ MonoBehaviour:
   - {x: 10, y: 8}
   - {x: 6, y: 4}
   - {x: 6, y: 3}
-  startPosition: {x: 10, y: 6}
-  destination: {x: 6, y: 17}
+  startPosition: {x: 10, y: 4}
+  destination: {x: 5, y: 17}
