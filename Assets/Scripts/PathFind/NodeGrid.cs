@@ -61,6 +61,19 @@ namespace AutoDriveSimulator
 
         void Update()
         {
+            if (Input.GetMouseButtonUp(0))
+            {
+                print("Mouse 0 clicker)");
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit rayhit;
+                if (Physics.Raycast(ray, out rayhit))
+                {
+                    Debug.Log(rayhit.collider.gameObject.name);
+                    rayhit.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.black;
+                   // print(rayhit.collider.gameObject.name);
+                }
+            }
+
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 displayCost = false;
