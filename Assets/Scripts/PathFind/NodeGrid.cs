@@ -8,6 +8,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+ 
 
 #endregion
 
@@ -59,9 +61,9 @@ namespace AutoDriveSimulator
         #region Methods
         void Start()
         {
+            ReadMap();
+            InitObsList();
             DrawGrid();
-          //  InitialData();
-           
 
             GameObject.Find("Toggle").GetComponent<Toggle>().onValueChanged.AddListener(isOn => OnObsticleSetToggleClosed());
         }
@@ -70,6 +72,7 @@ namespace AutoDriveSimulator
         {
             if (Input.GetMouseButtonUp(0)&&isSetObs)
             {
+                SaveGridSetingst();
                 print("Mouse 0 clicker)");
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit rayhit;
@@ -79,7 +82,7 @@ namespace AutoDriveSimulator
                     rayhit.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.black;
                     AddObsToList(rayhit.collider.gameObject);
                     print(rayhit.collider.gameObject.transform.position);
-                   // print(rayhit.collider.gameObject.name);
+                   
                 }
             }
 
@@ -90,11 +93,9 @@ namespace AutoDriveSimulator
                 {
                     InitialData();
                     InitialNodes();
-                  
                 }
                 playedSearch = true;
                 PathFinder.DoSearch();
-                
                 print("1 Key pressed");
             }
             
@@ -105,60 +106,63 @@ namespace AutoDriveSimulator
                 {
                     InitialData();
                     InitialNodes();
-                    
                 }
                 playedSearch = true;
                 PathFinder.DoSearch();
                 print("2 Key pressed");
             }
 
-
-
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-
-                
                 if (playedSearch)
                 {
                     InitialData();
                     InitialNodes();
-
                 }
                 playedSearch = true;
-
+                
                 PathFinder.AStarSearch();
                 print("3 Key pressed");
-                //foreach (var item in nodeDic)
-                //{
-                //    print(item.Value.State);
-                //}
             }
 
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                ReadMap();
+            }
         }
 
-        //
+        #region Grid set related methods
+        private void InitObsList()
+        {
+            foreach (var item in obsticles)
+            {
+                obsList.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Add node's position to obsList
+        /// </summary>
+        /// <param name="gameObject">node gameobject</param>
         private void AddObsToList(GameObject gameObject)
         {
-            //obsList.Clear();
             Vector2 v = new Vector2( -gameObject.transform.position.y, gameObject.transform.position.x);
+            if (obsList.Contains(v))
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = nodeColor;
+                obsList.Remove(v);
+                return;
+            }
             obsList.Add(v);
-           // UpdateObsticleArray();
         }
 
         private void UpdateObsticleArray()
         {
-            int length = obsticles.Length + obsList.Count; ;
-            Vector2[] newObsticles = new Vector2[length];
-            for (int i = 0; i < obsticles.Length; i++) 
-            { 
-                newObsticles[i] = obsticles[i];
-            }
-            for (int i = obsticles.Length; i < length; i++)
+            obsticles = new Vector2[obsList.Count];
+            for (int i = 0; i < obsList.Count; i++)
             {
-                newObsticles[i] = obsList[i-obsticles.Length];
+                obsticles[i] = obsList[i];
             }
-            obsticles = newObsticles;
-            print(obsticles.Length);
         }
        
         private void OnObsticleSetToggleClosed()
@@ -171,6 +175,140 @@ namespace AutoDriveSimulator
             }
             
         }
+
+        private void SaveGridSetingst()
+        {
+            //NodeGrid grid = gameObject.GetComponent<NodeGrid>();
+            //string gridSettings = JsonUtility.ToJson(this);
+            int[,] map = new int[rows,cols];
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < cols; c++)
+                {
+                    map[r,c] = 0;
+                }
+            }
+
+            foreach (var item in obsticles)
+            {
+                map[(int)item.x,(int)item.y] = 1;
+            }
+
+            string mapstr = " ";
+            for (int i = 0; i < 15; i++)
+            {
+                string str = " ";
+                for (int j = 0; j < 18; j++)
+                {
+                    str += map[i, j];
+                    str += ",";
+                }
+                str += "\n";
+                mapstr += str;
+
+            }
+
+            string path = Application.dataPath + "/Test";
+            string fileName = "map.txt";
+
+            if (Directory.Exists(path))
+            {
+                Debug.Log("Paht Exist");
+
+            }
+            else
+            {
+                Debug.Log("Paht does not Exist");
+            }
+
+            StreamWriter sw;
+            FileInfo fi = new FileInfo(path + "/" + fileName);
+            if (!fi.Exists)
+            {
+                sw = fi.CreateText();
+            }
+            else
+            {
+                fi.Delete();
+                sw = fi.CreateText();
+            }
+
+            sw.Write(mapstr);
+            sw.Close();
+            sw.Dispose();
+            
+
+        }
+
+        private void ReadMap()
+        {
+            string path = Application.dataPath + "/Test";
+            string fileName = "map.txt";
+
+            string[] mapLine = new string[cols];
+            string[][] map = new string[rows][];
+            string line;
+            int i = 0;
+
+            if (Directory.Exists(path))
+            {
+                StreamReader sr;
+                FileInfo fi = new FileInfo(path + "/" + fileName);
+                if (fi.Exists)
+                {
+                    sr = fi.OpenText();
+                    while (!sr.EndOfStream&&i<rows)
+                    {
+                        line = sr.ReadLine();
+                        mapLine = line.Split(',');
+                        //print(mapLine[3]);
+                        map[i] = mapLine;
+                        i++;
+                    }
+
+                    sr.Close();
+                    sr.Dispose();
+                }
+                else
+                {
+                    Debug.Log("The file dosen't exist");
+                }
+            }
+            else
+            {
+                Debug.Log("The path doesn't exist");
+            }
+
+            int count = 1;
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < cols; c++)
+                {
+                    if (map[r][c] == "1")
+                        count++;
+                }
+            }
+
+            obsticles = new Vector2[count];
+            count = 0;
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < cols; c++)
+                {
+                    if (map[r][c] == "1")
+                    {
+                        obsticles[count] = new Vector2(r, c);
+                        count++;
+                    }
+
+                }
+            }
+        }
+
+
+
+        #endregion
+
 
         /// <summary>
         /// Draw the Grid
