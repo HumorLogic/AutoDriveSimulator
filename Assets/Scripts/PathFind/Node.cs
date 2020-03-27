@@ -39,7 +39,7 @@ namespace AutoDriveSimulator
         public bool IsStepped { get; set; }
         public bool IsMarked { get; set; }
         public string Name { get; private set; }
-
+        public float dirAngle { get;  set; }  //Node direction angle
         public Vector3 State { get; set;}
         public int gValue { get; set; }
 
@@ -68,6 +68,7 @@ namespace AutoDriveSimulator
             Name = $"Node({Row},{Col})";
             IsStepped = false;
             IsMarked = false;
+            dirAngle = Mathf.PI / 2;
 
         }
 

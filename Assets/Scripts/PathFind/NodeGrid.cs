@@ -54,6 +54,7 @@ namespace AutoDriveSimulator
 
         private List<Vector2> obsList = new List<Vector2>();
         private bool isSetObs;
+        private SpriteRenderer sr;
 
 
         #endregion
@@ -72,16 +73,12 @@ namespace AutoDriveSimulator
             if (Input.GetMouseButtonUp(0)&&isSetObs)
             {
                
-                print("Mouse 0 clicker)");
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit rayhit;
                 if (Physics.Raycast(ray, out rayhit))
                 {
-                   // Debug.Log(rayhit.collider.gameObject.name);
-                    rayhit.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.black;
                     AddObsToList(rayhit.collider.gameObject);
-                  //  print(rayhit.collider.gameObject.transform.position);
-                   
+                    print(rayhit.collider.gameObject.name);
                 }
             }
 
@@ -124,9 +121,24 @@ namespace AutoDriveSimulator
                 print("3 Key pressed");
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.B))
             {
-              //  ReadMap();
+                // GameObject.Find("Node(5,5)").GetComponent<SpriteRenderer>().color = Color.black;
+                // print(-Mathf.Sin(Mathf.PI / 2));
+                Vector2 v= new Vector2(1.0f, 9.0f); 
+                if (nodeDic.ContainsKey(v))
+                {
+                    Debug.Log("OK");
+                }
+
+                foreach (var item in nodeDic)
+                {
+                    print(item.Key);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                GameObject.Find("Node(5,5)").GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
 
@@ -146,14 +158,26 @@ namespace AutoDriveSimulator
         /// <param name="gameObject">node gameobject</param>
         private void AddObsToList(GameObject gameObject)
         {
+            sr = gameObject.GetComponent<SpriteRenderer>();
             Vector2 v = new Vector2( -gameObject.transform.position.y, gameObject.transform.position.x);
             if (obsList.Contains(v))
             {
-                gameObject.GetComponent<SpriteRenderer>().color = nodeColor;
+                print("deleted");
+                //sr = gameObject.GetComponent<SpriteRenderer>();
+                //gameObject.GetComponent<SpriteRenderer>().color = nodeColor;
+                sr.color = nodeColor;
                 obsList.Remove(v);
+                
                 return;
             }
-            obsList.Add(v);
+            else
+            {
+                obsList.Add(v);
+                //gameObject.GetComponent<SpriteRenderer>().color = Color.black;
+                sr.color = Color.black;
+                print("added");
+            }
+           
         }
 
         private void UpdateObsticleArray()

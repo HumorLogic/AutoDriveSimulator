@@ -104,6 +104,7 @@ namespace AutoDriveSimulator
         /// </summary>
         public override async void DoStep()
         {
+            isDiffCost = true;
             VisualStep visual = new VisualStep(grid);
             Node current = grid.startNode;
             openList.Add(current);
@@ -140,6 +141,7 @@ namespace AutoDriveSimulator
             GetPath(grid.startNode, grid.desNode);
             visual.ColorPath(pathNodes);
 
+            isDiffCost = false;
         }
 
 
