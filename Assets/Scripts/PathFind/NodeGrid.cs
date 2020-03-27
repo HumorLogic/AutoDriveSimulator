@@ -61,8 +61,7 @@ namespace AutoDriveSimulator
         #region Methods
         void Start()
         {
-            ReadMap();
-            InitObsList();
+           
             DrawGrid();
 
             GameObject.Find("Toggle").GetComponent<Toggle>().onValueChanged.AddListener(isOn => OnObsticleSetToggleClosed());
@@ -72,16 +71,16 @@ namespace AutoDriveSimulator
         {
             if (Input.GetMouseButtonUp(0)&&isSetObs)
             {
-                SaveGridSetingst();
+               
                 print("Mouse 0 clicker)");
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit rayhit;
                 if (Physics.Raycast(ray, out rayhit))
                 {
-                    Debug.Log(rayhit.collider.gameObject.name);
+                   // Debug.Log(rayhit.collider.gameObject.name);
                     rayhit.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.black;
                     AddObsToList(rayhit.collider.gameObject);
-                    print(rayhit.collider.gameObject.transform.position);
+                  //  print(rayhit.collider.gameObject.transform.position);
                    
                 }
             }
@@ -127,13 +126,14 @@ namespace AutoDriveSimulator
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                ReadMap();
+              //  ReadMap();
             }
         }
 
         #region Grid set related methods
         private void InitObsList()
         {
+            obsList.Clear();
             foreach (var item in obsticles)
             {
                 obsList.Add(item);
@@ -168,18 +168,21 @@ namespace AutoDriveSimulator
         private void OnObsticleSetToggleClosed()
         {
             isSetObs = !isSetObs;
+            
             if (!isSetObs)
             {
+
                 UpdateObsticleArray();
+                SaveGridMap();
                 DrawGrid();
             }
             
         }
 
-        private void SaveGridSetingst()
+
+        private void SaveGridMap()
         {
-            //NodeGrid grid = gameObject.GetComponent<NodeGrid>();
-            //string gridSettings = JsonUtility.ToJson(this);
+            
             int[,] map = new int[rows,cols];
             for (int r = 0; r < rows; r++)
             {
@@ -240,6 +243,9 @@ namespace AutoDriveSimulator
 
         }
 
+        /// <summary>
+        /// Read map from txt file
+        /// </summary>
         private void ReadMap()
         {
             string path = Application.dataPath + "/Test";
@@ -279,7 +285,7 @@ namespace AutoDriveSimulator
                 Debug.Log("The path doesn't exist");
             }
 
-            int count = 1;
+            int count = 0;
             for (int r = 0; r < rows; r++)
             {
                 for (int c = 0; c < cols; c++)
@@ -315,7 +321,9 @@ namespace AutoDriveSimulator
         /// </summary>
         private void DrawGrid()
         {
-           
+            ReadMap();
+            InitObsList();
+
             ArrangeGrid(rows, cols);
             ResetNodeType();
             InitialNodes();
