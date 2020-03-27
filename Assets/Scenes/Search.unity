@@ -838,8 +838,8 @@ MonoBehaviour:
   - {x: 10, y: 8}
   - {x: 6, y: 4}
   - {x: 6, y: 3}
-  startPosition: {x: 10, y: 4}
-  destination: {x: 5, y: 17}
+  startPosition: {x: 14, y: 8}
+  destination: {x: 7, y: 0}
 --- !u!1 &1639864159
 GameObject:
   m_ObjectHideFlags: 0

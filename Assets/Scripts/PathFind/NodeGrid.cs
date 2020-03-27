@@ -49,7 +49,7 @@ namespace AutoDriveSimulator
        
         public Node startNode { get; private set; }
         public Node desNode { get; private set; }
-        public  Dictionary<Vector2, Node> nodeDic = new Dictionary<Vector2, Node>();
+        public  Dictionary<float, Node> nodeDic = new Dictionary<float, Node>();
         private bool playedSearch;
 
         private List<Vector2> obsList = new List<Vector2>();
@@ -125,11 +125,7 @@ namespace AutoDriveSimulator
             {
                 // GameObject.Find("Node(5,5)").GetComponent<SpriteRenderer>().color = Color.black;
                 // print(-Mathf.Sin(Mathf.PI / 2));
-                Vector2 v= new Vector2(1.0f, 9.0f); 
-                if (nodeDic.ContainsKey(v))
-                {
-                    Debug.Log("OK");
-                }
+               
 
                 foreach (var item in nodeDic)
                 {
@@ -362,14 +358,15 @@ namespace AutoDriveSimulator
         private void ArrangeGrid(int rows,int cols)
         {
             nodeDic.Clear();
-
+            int key;
             for (int r = 0; r < rows; r++)
             {
                 for (int c= 0; c < cols; c++)
                 {
                     Node node = new Node(this, r, c, NodeType.Normal);
                     node.InitNode(transform, nodePrefab);
-                    nodeDic.Add(node.Pos, node);
+                     key = cols * r + c;
+                    nodeDic.Add(key, node);
                 }
             }
 
@@ -381,12 +378,17 @@ namespace AutoDriveSimulator
         /// </summary>
         private void ResetNodeType()
         {
+            float key;
             foreach (Vector2 obs in obsticles)
             {
-                nodeDic[obs].NodeType = NodeType.Obsticle;
+               key  = cols * obs.x + obs.y;
+                nodeDic[key].NodeType = NodeType.Obsticle;
             }
-            nodeDic[startPosition].NodeType = NodeType.Start;
-            nodeDic[destination].NodeType = NodeType.Destination;
+            key = cols* startPosition.x + startPosition.y;
+            nodeDic[key].NodeType = NodeType.Start;
+
+            key = cols * destination.x + destination.y;
+            nodeDic[key].NodeType = NodeType.Destination;
         }
 
 
@@ -425,14 +427,17 @@ namespace AutoDriveSimulator
         private void InitialData()
         {
             //set NodeGrid's startNode
-            startNode = nodeDic[startPosition];
+           float key = cols * startPosition.x + startPosition.y;
+
+            startNode = nodeDic[key];
             startNode.State = new Vector3(startPosition.x, startPosition.y, 0);
-            nodeDic[startPosition] = startNode;
-           
+            nodeDic[key] = startNode;
+
             //set NodeGerid's desNode
-            desNode = nodeDic[destination];
+            key = cols* destination.x +destination.y;
+            desNode = nodeDic[key];
             desNode.State = new Vector3(destination.x, destination.y, 0);
-            nodeDic[destination] = desNode;
+            nodeDic[key] = desNode;
 
         }
 

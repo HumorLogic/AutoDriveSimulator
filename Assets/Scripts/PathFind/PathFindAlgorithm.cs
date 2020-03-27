@@ -91,73 +91,31 @@ namespace AutoDriveSimulator
         /// </summary>
         /// <param name="node">Node object</param>
         /// <returns></returns>
-        //public IReadOnlyList<Node> GetNeighbors(Node node)
-        //{
-        //    if (isDiffCost)
-        //    {
-        //        motions = new Vector3[4] { new Vector3(-1, 0, 1), new Vector3(1, 0, 1), new Vector3(0, -1, 10), new Vector3(0, 1, 1) };
-        //    }
-        //    else
-        //    {
-        //        motions = new Vector3[4] { new Vector3(-1, 0, 1), new Vector3(1, 0, 1), new Vector3(0, -1, 1), new Vector3(0, 1, 1) };
-        //    }
-
-        //    var list = new List<Node>();
-        //    if (node.NodeType == NodeType.Obsticle)
-        //    {
-        //        return list;
-        //    }
-
-        //    Vector3 next;
-        //    Node nextNode;
-        //    for (int i = 0; i < motions.Length; i++)
-        //    {
-        //        next = node.State + motions[i];
-        //        if (next.x >= 0 && next.x < grid.rows && next.y >= 0 && next.y < grid.cols)
-        //        {
-        //            nextNode= GetNode(next);
-        //            list.Add(nextNode);
-        //            if (!motionDic.ContainsKey(nextNode))
-        //                motionDic.Add(nextNode, motions[i]);
-                    
-        //        }
-
-        //    }
-
-        //    return list;
-        //}
-
         public IReadOnlyList<Node> GetNeighbors(Node node)
         {
-            //if (isDiffCost)
-            //{
-            //    motions = new Vector3[4] { new Vector3(-1, 0, 1), new Vector3(1, 0, 1), new Vector3(0, -1, 10), new Vector3(0, 1, 1) };
-            //}
-            //else
-            //{
-            //    motions = new Vector3[4] { new Vector3(-1, 0, 1), new Vector3(1, 0, 1), new Vector3(0, -1, 1), new Vector3(0, 1, 1) };
-            //}
+            if (isDiffCost)
+            {
+                motions = new Vector3[4] { new Vector3(-1, 0, 1), new Vector3(1, 0, 1), new Vector3(0, -1, 10), new Vector3(0, 1, 1) };
+            }
+            else
+            {
+                motions = new Vector3[4] { new Vector3(-1, 0, 1), new Vector3(1, 0, 1), new Vector3(0, -1, 1), new Vector3(0, 1, 1) };
+            }
 
             var list = new List<Node>();
             if (node.NodeType == NodeType.Obsticle)
             {
                 return list;
             }
-            GetMotions(node);
+
             Vector3 next;
             Node nextNode;
             for (int i = 0; i < motions.Length; i++)
             {
                 next = node.State + motions[i];
-                Debug.Log(next);
                 if (next.x >= 0 && next.x < grid.rows && next.y >= 0 && next.y < grid.cols)
                 {
                     nextNode = GetNode(next);
-                    if (i == 1) { nextNode.dirAngle -= Mathf.PI; }
-                    else if (i == 2) { nextNode.dirAngle += Mathf.PI / 2; }
-                    else if (i == 3) { nextNode.dirAngle -= Mathf.PI / 2; }
-
-
                     list.Add(nextNode);
                     if (!motionDic.ContainsKey(nextNode))
                         motionDic.Add(nextNode, motions[i]);
@@ -168,6 +126,48 @@ namespace AutoDriveSimulator
 
             return list;
         }
+
+        //public IReadOnlyList<Node> GetNeighbors(Node node)
+        //{
+        //    //if (isDiffCost)
+        //    //{
+        //    //    motions = new Vector3[4] { new Vector3(-1, 0, 1), new Vector3(1, 0, 1), new Vector3(0, -1, 10), new Vector3(0, 1, 1) };
+        //    //}
+        //    //else
+        //    //{
+        //    //    motions = new Vector3[4] { new Vector3(-1, 0, 1), new Vector3(1, 0, 1), new Vector3(0, -1, 1), new Vector3(0, 1, 1) };
+        //    //}
+
+        //    var list = new List<Node>();
+        //    if (node.NodeType == NodeType.Obsticle)
+        //    {
+        //        return list;
+        //    }
+        //    GetMotions(node);
+        //    Vector3 next;
+        //    Node nextNode;
+        //    for (int i = 0; i < motions.Length; i++)
+        //    {
+        //        next = node.State + motions[i];
+        //        Debug.Log(next);
+        //        if (next.x >= 0 && next.x < grid.rows && next.y >= 0 && next.y < grid.cols)
+        //        {
+        //            nextNode = GetNode(next);
+        //            if (i == 1) { nextNode.dirAngle -= Mathf.PI; }
+        //            else if (i == 2) { nextNode.dirAngle += Mathf.PI / 2; }
+        //            else if (i == 3) { nextNode.dirAngle -= Mathf.PI / 2; }
+
+
+        //            list.Add(nextNode);
+        //            if (!motionDic.ContainsKey(nextNode))
+        //                motionDic.Add(nextNode, motions[i]);
+
+        //        }
+
+        //    }
+
+        //    return list;
+        //}
 
         private void GetMotions(Node n)
         {
@@ -204,7 +204,8 @@ namespace AutoDriveSimulator
         protected Node GetNode(Vector3 v)
         {
 
-            Vector2 key = new Vector2(v.x, v.y);
+            // Vector2 key = new Vector2(v.x, v.y);
+            float key = grid.cols * v.x + v.y;
             Debug.Log(key);
             Node node = grid.nodeDic[key];
             
