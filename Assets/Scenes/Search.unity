@@ -814,7 +814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d64e05147de9f024bae036ce9d87cc45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 10
+  delayTime: 300
   displayCost: 1
   rows: 15
   cols: 18
@@ -838,7 +838,7 @@ MonoBehaviour:
   - {x: 10, y: 8}
   - {x: 6, y: 4}
   - {x: 6, y: 3}
-  startPosition: {x: 14, y: 8}
+  startPosition: {x: 11, y: 8}
   destination: {x: 7, y: 0}
 --- !u!1 &1639864159
 GameObject:

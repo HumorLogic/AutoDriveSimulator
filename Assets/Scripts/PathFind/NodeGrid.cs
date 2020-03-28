@@ -49,7 +49,7 @@ namespace AutoDriveSimulator
        
         public Node startNode { get; private set; }
         public Node desNode { get; private set; }
-        public  Dictionary<float, Node> nodeDic = new Dictionary<float, Node>();
+        public  Dictionary<int, Node> nodeDic = new Dictionary<int, Node>();
         private bool playedSearch;
 
         private List<Vector2> obsList = new List<Vector2>();
@@ -378,16 +378,16 @@ namespace AutoDriveSimulator
         /// </summary>
         private void ResetNodeType()
         {
-            float key;
+            int key;
             foreach (Vector2 obs in obsticles)
             {
-               key  = cols * obs.x + obs.y;
+               key  = (int)(cols * obs.x + obs.y);
                 nodeDic[key].NodeType = NodeType.Obsticle;
             }
-            key = cols* startPosition.x + startPosition.y;
+            key =(int) (cols* startPosition.x + startPosition.y);
             nodeDic[key].NodeType = NodeType.Start;
 
-            key = cols * destination.x + destination.y;
+            key =(int)( cols * destination.x + destination.y);
             nodeDic[key].NodeType = NodeType.Destination;
         }
 
@@ -427,14 +427,14 @@ namespace AutoDriveSimulator
         private void InitialData()
         {
             //set NodeGrid's startNode
-           float key = cols * startPosition.x + startPosition.y;
+           int key = (int)(cols * startPosition.x + startPosition.y);
 
             startNode = nodeDic[key];
             startNode.State = new Vector3(startPosition.x, startPosition.y, 0);
             nodeDic[key] = startNode;
 
             //set NodeGerid's desNode
-            key = cols* destination.x +destination.y;
+            key = (int)(cols* destination.x +destination.y);
             desNode = nodeDic[key];
             desNode.State = new Vector3(destination.x, destination.y, 0);
             nodeDic[key] = desNode;

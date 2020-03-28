@@ -39,7 +39,17 @@ namespace AutoDriveSimulator
         public bool IsStepped { get; set; }
         public bool IsMarked { get; set; }
         public string Name { get; private set; }
-        public float dirAngle { get;  set; }  //Node direction angle
+
+        private float dir; //Node direction angle
+        public float dirAngle { 
+            get { return dir; }
+            set {
+                if (value < -Mathf.PI) { dir = value + 2 * Mathf.PI; }
+                else if (value > Mathf.PI) { dir = value - 2 * Mathf.PI; }
+                else { dir = value; }
+
+                    }
+        }  
         public Vector3 State { get; set;}
         public int gValue { get; set; }
 
@@ -68,7 +78,7 @@ namespace AutoDriveSimulator
             Name = $"Node({Row},{Col})";
             IsStepped = false;
             IsMarked = false;
-            dirAngle = Mathf.PI / 2;
+            dir= Mathf.PI / 2;
 
         }
 
@@ -105,7 +115,39 @@ namespace AutoDriveSimulator
         /// </summary>
         public void DisplayCost()
         {
-            nodeObj.GetComponentInChildren<Text>().text = gValue.ToString();
+            string dir = DispalyDirection();
+            string content = gValue.ToString()  + dir;
+            //nodeObj.GetComponentInChildren<Text>().text = gValue.ToString();
+            nodeObj.GetComponentInChildren<Text>().text = content;
+            Debug.Log(Pos+" Angle:"+dir+" gValue:"+gValue);
+           // Debug.Log(this.dir);
+
+        }
+
+        private string DispalyDirection()
+        {
+            string d = " ";
+            switch (dir)
+            {
+                case (Mathf.PI/2):
+                    d=  "^";
+                    break;
+                case (Mathf.PI):
+                    d = "<";
+                    break;
+                case (-Mathf.PI / 2):
+                    d = "v";
+                    break;
+                case (0):
+                    d = ">";
+                    break;
+                case (-Mathf.PI):
+                    d = "<";
+                    break;
+               
+            }
+            return d;
+
         }
 
         public void DisplayHeuristic()
@@ -128,6 +170,7 @@ namespace AutoDriveSimulator
             nodeObj.GetComponentInChildren<Text>().text = null;
             State = new Vector3(State.x, State.y, 0);
             gValue = (int)State.z;
+            dir = Mathf.PI / 2;
         }
 
         #endregion

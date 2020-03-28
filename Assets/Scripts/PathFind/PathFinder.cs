@@ -63,6 +63,19 @@ namespace AutoDriveSimulator
             {
                 current = ExtractMini();
                 var nextNodes = GetNeighbors(current);
+                //foreach (var item in nextNodes)
+                //{
+                //    if (!item.IsMarked && item.NodeType != NodeType.Obsticle)
+                //    {
+                //        item.IsMarked = true;
+                //        await Task.Delay(grid.delayTime);
+                //        visual.MarkNode(item);
+                //        openList.Add(item);
+
+                //        if (grid.displayCost)
+                //            item.DisplayCost();
+                //    }
+                //}
                 foreach (var item in nextNodes)
                 {
                     if (!item.IsMarked && item.NodeType != NodeType.Obsticle)
@@ -77,6 +90,7 @@ namespace AutoDriveSimulator
                     }
                 }
                 current.IsStepped = true;
+                current.DisplayCost();
                 visual.MarkSteppedNode(current);
                
             }
@@ -150,6 +164,7 @@ namespace AutoDriveSimulator
         /// </summary>
         public void GetHeuristic()
         {
+            isHeuristic = true;
           //  VisualStep visual = new VisualStep(grid);
             Node current = grid.desNode;
             openList.Add(current);
@@ -182,7 +197,7 @@ namespace AutoDriveSimulator
             }
 
             motionDic.Clear();
-
+            isHeuristic = false;
         }
 
 
