@@ -10,21 +10,8 @@
 #### 网格中车模型方向    
 
 <img src="img/grid_car.png" align="left" width="400" alt="grid"/>  
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>    
 
-<br/>  
-<br/>  
-<br/>  
-<br/>  
-<br/>  
-<br/>  
-<br/>  
-<br/>
-<br/>  
-<br/>  
-<br/>  
-<br/>  
-<br/>  
- 
 
 #### 运动方向表格  
 
