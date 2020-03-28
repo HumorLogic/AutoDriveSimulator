@@ -130,14 +130,6 @@ namespace AutoDriveSimulator
 
         public IReadOnlyList<Node> GetNeighbors(Node node)
         {
-            //if (isdiffcost)
-            //{
-            //    motions = new vector3[4] { new vector3(-1, 0, 1), new vector3(1, 0, 1), new vector3(0, -1, 10), new vector3(0, 1, 1) };
-            //}
-            //else
-            //{
-            //    motions = new vector3[4] { new vector3(-1, 0, 1), new vector3(1, 0, 1), new vector3(0, -1, 1), new vector3(0, 1, 1) };
-            //}
 
             var list = new List<Node>();
             if (node.NodeType == NodeType.Obsticle)
@@ -173,18 +165,20 @@ namespace AutoDriveSimulator
             return list;
         }
 
+
+        /// <summary>
+        /// Get node's motions Vector3 array
+        /// </summary>
+        /// <param name="n">node object</param>
         private void GetMotions(Node n)
         {
-            float theta = n.dirAngle;
+            float theta = (float)n.dirAngle;
             motions= new Vector3[4] {new Vector3(-Mathf.Sin(theta),Mathf.Cos(theta),1),         //Up       cost =1    
                                                       new Vector3(-Mathf.Cos(theta), -Mathf.Sin(theta), 10),    //Left     cost =10    
                                                       new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 1) ,       //Right    cost =1  
                                                       new Vector3(Mathf.Sin(theta), -Mathf.Cos(theta), 20),    //Down   cost =1  
-                                                    };
-
+                                                      };
         }
-
-        
 
 
         /// <summary>

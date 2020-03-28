@@ -40,8 +40,8 @@ namespace AutoDriveSimulator
         public bool IsMarked { get; set; }
         public string Name { get; private set; }
 
-        private float dir; //Node direction angle
-        public float dirAngle { 
+        private double dir; //Node direction angle
+        public double dirAngle { 
             get { return dir; }
             set {
                 if (value < -Mathf.PI) { dir = value + 2 * Mathf.PI; }
@@ -119,33 +119,55 @@ namespace AutoDriveSimulator
             string content = gValue.ToString()  + dir;
             //nodeObj.GetComponentInChildren<Text>().text = gValue.ToString();
             nodeObj.GetComponentInChildren<Text>().text = content;
-            Debug.Log(Pos+" Angle:"+dir+" gValue:"+gValue);
+            Debug.Log(Pos+" 角度:"+this.dir+ " Angle:"+dir+" gValue:"+gValue);
            // Debug.Log(this.dir);
 
         }
 
         private string DispalyDirection()
         {
+            int angle = (int)((dir / Mathf.PI) * 180);
+            Debug.Log(angle);
             string d = " ";
-            switch (dir)
+            switch (angle)
             {
-                case (Mathf.PI/2):
+                case (90):
                     d=  "^";
                     break;
-                case (Mathf.PI):
+                case (180):
                     d = "<";
                     break;
-                case (-Mathf.PI / 2):
+                case (-90):
                     d = "v";
                     break;
                 case (0):
                     d = ">";
                     break;
-                case (-Mathf.PI):
+                case (-180):
                     d = "<";
                     break;
                
             }
+
+            //switch (dir)
+            //{
+            //    case (Mathf.PI / 2):
+            //        d = "^";
+            //        break;
+            //    case (Mathf.PI):
+            //        d = "<";
+            //        break;
+            //    case (-Mathf.PI / 2):
+            //        d = "v";
+            //        break;
+            //    case (0):
+            //        d = ">";
+            //        break;
+            //    case (-Mathf.PI):
+            //        d = "<";
+            //        break;
+
+            //}
             return d;
 
         }
