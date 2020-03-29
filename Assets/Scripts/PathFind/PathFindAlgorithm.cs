@@ -149,9 +149,9 @@ namespace AutoDriveSimulator
                 if (next.x >= 0 && next.x < grid.rows && next.y >= 0 && next.y < grid.cols)
                 {
                     nextnode = GetNode(next);
-                    if (i == 0) { nextnode.dirAngle = node.dirAngle; }
-                    else if (i == 1) { nextnode.dirAngle = node.dirAngle+Mathf.PI / 2; }
-                    else if (i == 2) { nextnode.dirAngle =node.dirAngle- Mathf.PI / 2; }
+                    if (i == 0) { nextnode.DirAngle = node.DirAngle; }
+                    else if (i == 1) { nextnode.DirAngle = node.DirAngle+Mathf.PI / 2; }
+                    else if (i == 2) { nextnode.DirAngle =node.DirAngle- Mathf.PI / 2; }
 
 
                     list.Add(nextnode);
@@ -172,7 +172,7 @@ namespace AutoDriveSimulator
         /// <param name="n">node object</param>
         private void GetMotions(Node n)
         {
-            float theta = (float)n.dirAngle;
+            float theta = (float)n.DirAngle;
             motions= new Vector3[4] {new Vector3(-Mathf.Sin(theta),Mathf.Cos(theta),1),         //Up       cost =1    
                                                       new Vector3(-Mathf.Cos(theta), -Mathf.Sin(theta), 10),    //Left     cost =10    
                                                       new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 1) ,       //Right    cost =1  

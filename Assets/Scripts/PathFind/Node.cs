@@ -41,18 +41,23 @@ namespace AutoDriveSimulator
         public string Name { get; private set; }
 
         private double dir; //Node direction angle
-        public double dirAngle { 
+
+        private string[] dirSymbol = { "^", "v", "<", ">" };
+
+        private int[] angleArr = { 90, -90, 180, 0 };
+        public double DirAngle
+        {
             get { return dir; }
-            set {
-                if (value < -Mathf.PI) { dir = value + 2 * Mathf.PI; }
+            set
+            {
+                if (value <= -Mathf.PI) { dir = value + 2 * Mathf.PI; }
                 else if (value > Mathf.PI) { dir = value - 2 * Mathf.PI; }
                 else { dir = value; }
 
-                    }
-        }  
-        public Vector3 State { get; set;}
+            }
+        }
+        public Vector3 State { get; set; }
         public int gValue { get; set; }
-
         public int hValue { get; set; }
         public int fValue { get; set; }
         public GameObject nodeObj { get; private set; }
@@ -78,7 +83,7 @@ namespace AutoDriveSimulator
             Name = $"Node({Row},{Col})";
             IsStepped = false;
             IsMarked = false;
-            dir= Mathf.PI / 2;
+            dir = Mathf.PI / 2;
 
         }
 
@@ -115,39 +120,46 @@ namespace AutoDriveSimulator
         /// </summary>
         public void DisplayCost()
         {
-            string dir = DispalyDirection();
-            string content = gValue.ToString()  + dir;
-            //nodeObj.GetComponentInChildren<Text>().text = gValue.ToString();
+            string dir = GetDirSymbol();
+            string content = gValue.ToString() + dir;
+
             nodeObj.GetComponentInChildren<Text>().text = content;
-            Debug.Log(Pos+" 角度:"+this.dir+ " Angle:"+dir+" gValue:"+gValue);
-           // Debug.Log(this.dir);
+            Debug.Log(Pos + " 角度:" + this.dir + " Angle:" + dir + " gValue:" + gValue);
 
         }
 
-        private string DispalyDirection()
+       
+        private string GetDirSymbol()
         {
-            int angle = (int)((dir / Mathf.PI) * 180);
+            int angle = (int)(dir / Mathf.PI * 180);
             Debug.Log(angle);
             string d = " ";
-            switch (angle)
+
+            for (int i = 0; i < angleArr.Length; i++)
             {
-                case (90):
-                    d=  "^";
-                    break;
-                case (180):
-                    d = "<";
-                    break;
-                case (-90):
-                    d = "v";
-                    break;
-                case (0):
-                    d = ">";
-                    break;
-                case (-180):
-                    d = "<";
-                    break;
-               
+                if (angle == angleArr[i])
+                    return dirSymbol[i];
             }
+
+            //switch (angle)
+            //{
+            //    case (90):
+            //        d=  "^";
+            //        break;
+            //    case (180):
+            //        d = "<";
+            //        break;
+            //    case (-90):
+            //        d = "v";
+            //        break;
+            //    case (0):
+            //        d = ">";
+            //        break;
+            //    case (-180):
+            //        d = "<";
+            //        break;
+
+            //}
 
             //switch (dir)
             //{
