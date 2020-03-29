@@ -39,12 +39,11 @@ namespace AutoDriveSimulator
         public bool IsStepped { get; set; }
         public bool IsMarked { get; set; }
         public string Name { get; private set; }
-
-        private double dir; //Node direction angle
-
-        private string[] dirSymbol = { "^", "v", "<", ">" };
-
-        private int[] angleArr = { 90, -90, 180, 0 };
+        public Vector3 State { get; set; }
+        public int gValue { get; set; }
+        public int hValue { get; set; }
+        public int fValue { get; set; }
+        public GameObject nodeObj { get; private set; }
         public double DirAngle
         {
             get { return dir; }
@@ -53,14 +52,15 @@ namespace AutoDriveSimulator
                 if (value <= -Mathf.PI) { dir = value + 2 * Mathf.PI; }
                 else if (value > Mathf.PI) { dir = value - 2 * Mathf.PI; }
                 else { dir = value; }
-
             }
         }
-        public Vector3 State { get; set; }
-        public int gValue { get; set; }
-        public int hValue { get; set; }
-        public int fValue { get; set; }
-        public GameObject nodeObj { get; private set; }
+
+        private double dir; //Node direction angle
+
+        private string[] dirSymbol = { "^", "v", "<", ">" };
+
+        private int[] angleArr = { 90, -90, 180, 0 };
+        
 
         #endregion
 
