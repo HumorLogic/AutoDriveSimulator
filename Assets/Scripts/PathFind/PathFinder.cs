@@ -24,10 +24,6 @@ namespace AutoDriveSimulator
 
         }
 
-        public static double AddNum(double a,double b)
-        {
-            return a + b;
-        }
 
         public static void AStarSearch()
         {

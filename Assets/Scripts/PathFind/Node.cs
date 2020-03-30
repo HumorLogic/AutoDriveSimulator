@@ -32,9 +32,13 @@ namespace AutoDriveSimulator
 
         #region Members
         public NodeType NodeType { get; set; }
-        public NodeGrid Grid { get; private set; }
-        public int Row { get; private set; }
-        public int Col { get; private set; }
+       // public NodeGrid Grid { get; private set; }
+        //public int Row { get; private set; }
+        //public int Col { get; private set; }
+        private int row;
+        private int col;
+
+   
         public Vector2 Pos { get; private set; }
         public bool IsStepped { get; set; }
         public bool IsMarked { get; set; }
@@ -75,12 +79,14 @@ namespace AutoDriveSimulator
         /// <param name="type">Node type</param>
         public Node(NodeGrid grid, int row, int col, NodeType type)
         {
-            Grid = grid;
-            Row = row;
-            Col = col;
+            //  Grid = grid;
+            //Row = row;
+            //Col = col;
+            this.row = row;
+            this.col = col;
             NodeType = type;
-            Pos = new Vector2(Row, Col);
-            Name = $"Node({Row},{Col})";
+            Pos = new Vector2(row, col);
+            Name = $"Node({row},{col})";
             IsStepped = false;
             IsMarked = false;
             dir = Mathf.PI / 2;
@@ -101,7 +107,7 @@ namespace AutoDriveSimulator
             nodeObj = GameObject.Instantiate(prefab);
             nodeObj.name = Name;
             nodeObj.transform.parent = parent;
-            nodeObj.transform.position = new Vector3(Col, -Row, 0);
+            nodeObj.transform.position = new Vector3(col, -row, 0);
         }
 
 
