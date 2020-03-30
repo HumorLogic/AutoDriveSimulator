@@ -6,7 +6,7 @@
   <img src="img/car_cor.jpg" width="400" height="400" alt="model"/>   
   </p>  
     
-  > 当前模型旋转角度θ=π/2
+  当前模型旋转角度θ=π/2
   
 
 
