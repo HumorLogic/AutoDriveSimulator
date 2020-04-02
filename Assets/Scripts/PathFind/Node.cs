@@ -32,7 +32,7 @@ namespace AutoDriveSimulator
 
         #region Members
         public NodeType NodeType { get; set; }
-       // public NodeGrid Grid { get; private set; }
+        // public NodeGrid Grid { get; private set; }
         //public int Row { get; private set; }
         //public int Col { get; private set; }
         private int row;
@@ -46,7 +46,7 @@ namespace AutoDriveSimulator
         public Vector3 State { get; set; }
         public int gValue { get; set; }
         public int hValue { get; set; }
-        
+
         public int fValue;
         private GameObject nodeObj;
         public double DirAngle
@@ -65,7 +65,7 @@ namespace AutoDriveSimulator
         private string[] dirSymbol = { "^", "v", "<", ">" };
 
         private int[] angleArr = { 90, -90, 180, 0 };
-        
+
 
         #endregion
 
@@ -135,7 +135,7 @@ namespace AutoDriveSimulator
 
         }
 
-       
+
         private string GetDirSymbol()
         {
             int angle = (int)(dir / Mathf.PI * 180);
@@ -215,7 +215,6 @@ namespace AutoDriveSimulator
         }
 
         #endregion
-
     }
 
 
