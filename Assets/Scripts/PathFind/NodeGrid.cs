@@ -49,7 +49,8 @@ namespace AutoDriveSimulator
        
         public Node startNode { get; private set; }
         public Node desNode { get; private set; }
-        public  Dictionary<int, Node> nodeDic = new Dictionary<int, Node>();
+        public  Dictionary<int, Node> nodeDic { get; private set; }
+        
         private bool playedSearch;
 
         private List<Vector2> obsList = new List<Vector2>();
@@ -62,7 +63,7 @@ namespace AutoDriveSimulator
         #region Methods
         void Start()
         {
-           
+            nodeDic = new Dictionary<int, Node>();
             DrawGrid();
 
             GameObject.Find("Toggle").GetComponent<Toggle>().onValueChanged.AddListener(isOn => OnObsticleSetToggleClosed());
@@ -341,6 +342,7 @@ namespace AutoDriveSimulator
         /// </summary>
         private void DrawGrid()
         {
+
             ReadMap();
             InitObsList();
 
@@ -442,16 +444,19 @@ namespace AutoDriveSimulator
         }
 
 
+
         //private void ResetGrid()
         //{
         //    nodeDic.Clear();
         //    DrawGrid();
         //    InitialData();
         //}
-       
+
 
         #endregion
+       
 
+      
     }
 }
 

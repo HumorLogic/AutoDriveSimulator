@@ -38,16 +38,17 @@ namespace AutoDriveSimulator
         private int row;
         private int col;
 
-   
-        public Vector2 Pos { get; private set; }
+
+        private Vector2 pos;
         public bool IsStepped { get; set; }
         public bool IsMarked { get; set; }
-        public string Name { get; private set; }
+        private string nodeName;
         public Vector3 State { get; set; }
         public int gValue { get; set; }
         public int hValue { get; set; }
-        public int fValue { get; set; }
-        public GameObject nodeObj { get; private set; }
+        
+        public int fValue;
+        private GameObject nodeObj;
         public double DirAngle
         {
             get { return dir; }
@@ -79,14 +80,14 @@ namespace AutoDriveSimulator
         /// <param name="type">Node type</param>
         public Node(NodeGrid grid, int row, int col, NodeType type)
         {
-            //  Grid = grid;
+            //Grid = grid;
             //Row = row;
             //Col = col;
             this.row = row;
             this.col = col;
             NodeType = type;
-            Pos = new Vector2(row, col);
-            Name = $"Node({row},{col})";
+            pos = new Vector2(row, col);
+            nodeName = $"Node({row},{col})";
             IsStepped = false;
             IsMarked = false;
             dir = Mathf.PI / 2;
@@ -105,7 +106,7 @@ namespace AutoDriveSimulator
         public void InitNode(Transform parent, GameObject prefab)
         {
             nodeObj = GameObject.Instantiate(prefab);
-            nodeObj.name = Name;
+            nodeObj.name = nodeName;
             nodeObj.transform.parent = parent;
             nodeObj.transform.position = new Vector3(col, -row, 0);
         }
@@ -130,7 +131,7 @@ namespace AutoDriveSimulator
             string content = gValue.ToString() + dir;
 
             nodeObj.GetComponentInChildren<Text>().text = content;
-            Debug.Log(Pos + " 角度:" + this.dir + " Angle:" + dir + " gValue:" + gValue);
+            Debug.Log(pos + " 角度:" + this.dir + " Angle:" + dir + " gValue:" + gValue);
 
         }
 

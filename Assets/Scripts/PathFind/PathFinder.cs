@@ -14,12 +14,14 @@ using System.Threading.Tasks;
 
 namespace AutoDriveSimulator
 {
+   
     public static class PathFinder
     {
         public static void DoSearch()
         {
             NodeGrid nodeGrid = GameObject.Find("Grid").GetComponent<NodeGrid>();
             Search_PFA search = new Search_PFA(nodeGrid);
+            
             search.DoStep();
 
         }
@@ -31,6 +33,8 @@ namespace AutoDriveSimulator
             AStar search = new AStar(nodeGrid);
             search.GetHeuristic();
             search.DoStep();
+            
+           
             
 
         }

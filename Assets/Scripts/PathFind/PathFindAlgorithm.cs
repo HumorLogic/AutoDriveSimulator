@@ -21,7 +21,7 @@ namespace AutoDriveSimulator
     public interface IPathFindAlgotithm
     {
         void DoStep();
-        void GetPath(Node start,Node des);
+        //void GetPath(Node start,Node des);
         IReadOnlyList<Node> GetNeighbors(Node node);
     }
 
@@ -48,6 +48,7 @@ namespace AutoDriveSimulator
         #endregion
 
         #region Constructor
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -73,7 +74,7 @@ namespace AutoDriveSimulator
         /// </summary>
         /// <param name="start">start node</param>
         /// <param name="des">destination node</param>
-        public void GetPath(Node start,Node des)
+        protected void GetPath(Node start,Node des)
         {
             Vector3 state = des.State;
             Node node = des;
@@ -91,7 +92,7 @@ namespace AutoDriveSimulator
         /// Get node's neighbors
         /// </summary>
         /// <param name="node">Node object</param>
-        /// <returns></returns>
+        /// <returns>List<Node></returns>
         //public IReadOnlyList<Node> GetNeighbors(Node node)
         //{
         //    if (isDiffCost)
@@ -128,6 +129,8 @@ namespace AutoDriveSimulator
         //    return list;
         //}
 
+
+     
         public IReadOnlyList<Node> GetNeighbors(Node node)
         {
 
